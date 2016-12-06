@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+   moduleId: module.id,
    selector: 'home',
    template: `
                <intro></intro>
@@ -10,5 +11,6 @@ import { Component } from '@angular/core';
                <enjoy></enjoy>
                <start></start>
              `,
+   styleUrls: [ 'home.css' ]
 })
 export class HomeComponent  { }

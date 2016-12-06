@@ -62,6 +62,18 @@ module.exports = function (grunt) {
             cwd: 'static/angular/',
             src: 'systemjs.config.js',
             dest: 'static/public/angular/'
+         },
+         fontAwesomeFonts: {
+            expand: true,
+            cwd: 'node_modules/font-awesome/fonts/',
+            src: '**',
+            dest: 'static/public/fonts/'
+         },
+         fontAwesomeStyles: {
+            expand: true,
+            cwd: 'node_modules/font-awesome/scss/',
+            src: '**',
+            dest: 'static/styles/font_awesome/'
          }
       },
       sass: {

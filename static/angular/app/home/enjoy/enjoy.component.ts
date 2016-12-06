@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+   moduleId: module.id,
    selector: 'enjoy',
-   template: `enjoy`,
+   templateUrl: 'enjoy.html',
+   styleUrls: [ 'enjoy.css' ]
 })
 export class EnjoyComponent  { }

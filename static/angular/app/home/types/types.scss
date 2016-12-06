@@ -1,0 +1,48 @@
+@import "../../../../styles/variables";
+
+.wrapper {
+   border-top: 1px solid $brand-primary-lighten;
+   border-bottom: 1px solid $brand-secondary-lighten;
+}
+.info {
+   padding: 40px 0;
+}
+.typeName {
+   font-weight: 300;
+   font-size: 36px;
+   color: $brand-secondary-darken;
+   text-shadow: $brand-secondary-lighten 0 1px 2px;
+}
+.types {
+   position: relative;
+   overflow: hidden;
+   height: 290px;
+}
+.carousel {
+   position: absolute;
+   width: 93%;
+   transition: top 2s;
+}
+.type {
+   height: 210px;
+   margin: 40px 0;
+}
+.question {
+   font-size: 30px;
+   color: $brand-primary;
+   text-shadow: $brand-primary-darken 0 2px 1px;
+}
+.icon {
+   padding-top: 4px;
+   text-align: center;
+}
+.q-line {
+   margin: 10px 0;
+   height: 30px;
+   background-color: $brand-secondary-lighten;
+   border-radius: $border-radius;
+   box-shadow: $brand-secondary-darken 0 2px 1px;
+}
+.type-3 {
+   padding: 80px 0;
+}

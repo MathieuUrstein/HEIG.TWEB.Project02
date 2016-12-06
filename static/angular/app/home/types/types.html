@@ -1,0 +1,95 @@
+<div class="wrapper">
+   <div class="container text-xs-left">
+      <div class="row">
+         <div class="col-md-7 info">
+            <h3>Choose between multiple polls types</h3>
+            <div class="typeName">{{ types[presentedType] }}</div>
+         </div>
+         <div class="col-md-5 types">
+            <div [style.top]="(-presentedType*250) + 'px'" class="carousel">
+               <div class="type type-1">
+                  <div class="row question q1">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-circle-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q2">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-dot-circle-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q3">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-circle-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q4">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-circle-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="type type-2">
+                  <div class="row question q1">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-square-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q2">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-check-square-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q3">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-square-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+                  <div class="row question q4">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-square-o"></i>
+                     </div>
+                     <div class="col-xs-10">
+                        <div class="q-line"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="type type-3">
+                  <div class="row question">
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-thumbs-o-up"></i>
+                     </div>
+                     <div class="col-xs-8">
+                        <div class="q-line"></div>
+                     </div>
+                     <div class="col-xs-2 icon">
+                        <i class="fa fa-thumbs-o-down"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

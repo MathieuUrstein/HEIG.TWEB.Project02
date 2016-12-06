@@ -1,0 +1,40 @@
+@import "../../../styles/variables";
+
+nav {
+   background: linear-gradient(15deg, $brand-primary-darken, $brand-secondary-darken);
+}
+.container {
+   position: relative;
+}
+.navbar-brand {
+   position: absolute;
+   top: -10px;
+   left: 50%;
+   width: 100px;
+   text-align: center;
+   margin-left: -50px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 40px;
+   font-weight: 900;
+   color: white;
+
+   &:hover {
+      color: $brand-primary-lighten;
+      text-shadow: $brand-secondary-darken 0 4px 5px;
+   }
+}
+.nav-item {
+   padding: 6px 0;
+
+   .nav-link {
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+
+      &:hover {
+         color: $brand-secondary-lighten;
+         text-shadow: $brand-primary-darken 0 2px 3px;
+
+      }
+   }
+}

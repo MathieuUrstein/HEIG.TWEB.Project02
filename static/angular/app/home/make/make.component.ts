@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+   moduleId: module.id,
    selector: 'make',
-   template: `make`,
+   templateUrl: 'make.html',
+   styleUrls: [ 'make.css' ]
 })
 export class MakeComponent  { }
