@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
    moduleId: module.id,
    selector: 'home',
    template: `
+               <header-menu></header-menu>
                <intro></intro>
                <types></types>
                <make></make>

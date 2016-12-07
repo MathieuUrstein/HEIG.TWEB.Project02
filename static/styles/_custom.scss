@@ -13,6 +13,12 @@ $fa-font-path: "public/fonts" !default;
       background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
       box-shadow: $brand-secondary 0 1px 6px 1px;
    }
+   &:not([href]):not([tabindex]) {
+      color: white;
+      &:hover, &:focus {
+         color: white;
+      }
+   }
 }
 h1,h2,h3,h4,h5,h6 {
    text-shadow: $brand-primary-lighten 0 1px 2px;
@@ -31,6 +37,12 @@ h1,h2,h3,h4,h5,h6 {
       text-shadow: black 0 2px;
       background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
       box-shadow: $brand-secondary 0 1px 6px 1px;
+   }
+   &:not([href]):not([tabindex]) {
+      color: black;
+   }
+   &:hover, &:focus {
+      color: black;
    }
 }
 .container {

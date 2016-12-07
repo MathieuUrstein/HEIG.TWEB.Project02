@@ -24,7 +24,7 @@ export class MakeComponent  {
       setTimeout(() => {
          this.addOrRemoveOne();
          this.addOrRemove();
-      }, 1250);
+      }, 2500);
    }
    addOrRemoveOne() {
       let allRemoved = true;

@@ -1,0 +1,33 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.wrapper {
+   padding-top: 63px;
+}
+.panel {
+   margin: 40px 0;
+   background: linear-gradient(15deg, $brand-primary-lighten, $brand-secondary-lighten);
+   border-radius: $border-radius;
+}
+.left-col {
+   @include media-breakpoint-up(lg) {
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+   }
+}
+.connect-form, .register-form {
+   margin: 40px 0;
+}
+.connect-form {
+   @include media-breakpoint-up(lg) {
+      margin: 137px 0;
+   }
+}
+hr {
+   margin: 40px 0;
+}
+.col {
+   padding: 20px 20px 30px;
+}
+.login {
+   margin-bottom: 5px;
+}

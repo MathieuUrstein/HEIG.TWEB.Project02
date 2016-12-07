@@ -17,7 +17,7 @@ export class EnjoyComponent  {
       this.randomQuestion();
 
       for (let i = 0; i < this.questions.length; i++) {
-         let max = 500;
+         let max = 20;
          this.questions[i] = Math.random() * max;
       }
       this.updateQuestions();
@@ -45,7 +45,7 @@ export class EnjoyComponent  {
    }
 
    randomVotes() {
-      this.nbNewVotes = Math.floor(Math.random() * 100 + 1);
+      this.nbNewVotes = Math.floor(Math.random() * 20 + 1);
    }
 
    randomQuestion() {

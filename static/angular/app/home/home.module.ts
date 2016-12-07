@@ -6,8 +6,11 @@ import { MakeComponent } from './make/make.component';
 import { ShareComponent } from './share/share.component';
 import { StartComponent } from './start/start.component';
 import { TypesComponent } from './types/types.component';
+import { HeaderMenuModule } from '../header-menu/headerMenu.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
+   imports: [ RouterModule, HeaderMenuModule ],
    declarations: [
                    HomeComponent,
                    EnjoyComponent,
