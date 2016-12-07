@@ -2,6 +2,7 @@
 
 nav {
    background: linear-gradient(15deg, $brand-primary-darken, $brand-secondary-darken);
+   box-shadow: $brand-primary-darken 0 2px 1px;
 }
 .container {
    position: relative;

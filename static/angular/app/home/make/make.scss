@@ -1,0 +1,53 @@
+@import "../../../../styles/variables";
+
+.wrapper {
+   border-bottom: 1px solid $brand-primary-lighten;
+}
+.info {
+   padding: 40px 0;
+}
+.types {
+   position: relative;
+   overflow: hidden;
+   height: 290px;
+}
+.icon {
+   padding-top: 4px;
+   text-align: center;
+}
+.q-line {
+   margin: 10px 0;
+   height: 30px;
+   background-color: $brand-secondary-lighten;
+   border-radius: $border-radius;
+   box-shadow: $brand-secondary-darken 0 2px 1px;
+}
+.type {
+   height: 210px;
+   margin: 40px 0;
+}
+.question {
+   font-size: 30px;
+   color: $brand-primary;
+   text-shadow: $brand-primary-darken 0 2px 1px;
+   height: 0;
+   overflow: hidden;
+   opacity: 0;
+   transition: height 2s, opacity 2s;
+}
+.isVisible {
+   height: 50px;
+   opacity: 1;
+}
+.btn-secondary {
+   margin-top: 30px;
+}
+.first-left {
+   margin-right: 30px;
+}
+.isClicked {
+   color: white;
+   text-shadow: black 0 2px;
+   background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
+   box-shadow: $brand-secondary 0 1px 6px 1px;
+}

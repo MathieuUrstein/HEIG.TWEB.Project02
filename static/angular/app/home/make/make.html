@@ -1,5 +1,52 @@
 <div class="wrapper">
-   <div class="container text-xs-right">
-      <h3>Add some polls</h3>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-7 info hidden-lg-up">
+            <h3>Add some questions to your poll</h3>
+            <span [class.isClicked]="addClicked" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
+            <span [class.isClicked]="removeClicked" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
+         </div>
+         <div class="col-md-5">
+            <div class="type type-2">
+               <div [class.isVisible]="isVisible[0]" class="row question q1">
+                  <div class="col-xs-2 icon">
+                     <i class="fa fa-square-o"></i>
+                  </div>
+                  <div class="col-xs-10">
+                     <div class="q-line"></div>
+                  </div>
+               </div>
+               <div [class.isVisible]="isVisible[1]" class="row question q2">
+                  <div class="col-xs-2 icon">
+                     <i class="fa fa-square-o"></i>
+                  </div>
+                  <div class="col-xs-10">
+                     <div class="q-line"></div>
+                  </div>
+               </div>
+               <div [class.isVisible]="isVisible[2]" class="row question q3">
+                  <div class="col-xs-2 icon">
+                     <i class="fa fa-square-o"></i>
+                  </div>
+                  <div class="col-xs-10">
+                     <div class="q-line"></div>
+                  </div>
+               </div>
+               <div [class.isVisible]="isVisible[3]" class="row question q4">
+                  <div class="col-xs-2 icon">
+                     <i class="fa fa-square-o"></i>
+                  </div>
+                  <div class="col-xs-10">
+                     <div class="q-line"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-7 info text-xs-right hidden-md-down">
+            <h3>Add some questions to your poll</h3>
+            <span [class.isClicked]="addClicked" (click)="addOne()" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
+            <span [class.isClicked]="removeClicked" (click)="removeOne()" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
+         </div>
+      </div>
    </div>
 </div>

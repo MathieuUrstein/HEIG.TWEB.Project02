@@ -1,5 +1,52 @@
 <div class="wrapper">
-   <div class="container text-xs-right">
-      <h3>Enjoy live</h3>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-7 info hidden-lg-up">
+            <h3>Enjoy it live !</h3>
+            <h1><span>+{{nbNewVotes}}</span> votes for question <span>{{choosedQuestion}}</span></h1>
+         </div>
+         <div class="col-md-5">
+            <div class="type type-2">
+               <div class="row question q1">
+                  <div class="col-xs-3 icon">
+                     <div class="l-q-line"></div>
+                  </div>
+                  <div class="col-xs-9">
+                     <div [style.width]="questionsPercent[0] + '%'" class="q-line"></div>
+                  </div>
+               </div>
+               <div class="row question q2">
+                  <div class="col-xs-3 icon">
+                     <div class="l-q-line"></div>
+                  </div>
+                  <div class="col-xs-9">
+                     <div [style.width]="questionsPercent[1] + '%'" class="q-line"></div>
+                  </div>
+               </div>
+               <div class="row question q3">
+                  <div class="col-xs-3 icon">
+                     <div class="l-q-line"></div>
+                  </div>
+                  <div class="col-xs-9">
+                     <div [style.width]="questionsPercent[2] + '%'" class="q-line"></div>
+                  </div>
+               </div>
+               <div class="row question q4">
+                  <div class="col-xs-3 icon">
+                     <div class="l-q-line"></div>
+                  </div>
+                  <div class="col-xs-9">
+                     <div [style.width]="questionsPercent[3] + '%'" class="q-line"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-7 info text-xs-right hidden-md-down">
+            <h3>Enjoy it live !</h3>
+            <h1><span>+{{nbNewVotes}}</span> votes for question <span>{{choosedQuestion + 1}}</span></h1>
+         </div>
+      </div>
    </div>
 </div>
+
+

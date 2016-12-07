@@ -1,0 +1,41 @@
+@import "../../../../styles/variables";
+
+.wrapper {
+   border-bottom: 1px solid $brand-primary-lighten;
+}
+.info {
+   padding: 40px 0;
+}
+h1 {
+   text-shadow: $brand-primary 0 1px 2px;
+   font-weight: 900;
+
+   span {
+      color: $brand-secondary;
+   }
+}
+.l-q-line {
+   margin: 10px 0;
+   height: 30px;
+   background-color: $brand-primary-lighten;
+   border-radius: $border-radius;
+   box-shadow: $brand-primary-darken 0 2px 1px;
+   float: right;
+   width: 100%;
+}
+.q-line {
+   margin: 10px 0;
+   height: 30px;
+   background-color: $brand-secondary-lighten;
+   border-radius: $border-radius;
+   box-shadow: $brand-secondary-darken 0 2px 1px;
+   transition: width 2s;
+}
+.question {
+   color: $brand-primary;
+   text-shadow: $brand-primary-darken 0 2px 1px;
+}
+.type {
+   height: 210px;
+   margin: 40px 0;
+}

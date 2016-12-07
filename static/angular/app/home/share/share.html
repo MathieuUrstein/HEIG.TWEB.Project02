@@ -1,5 +1,15 @@
 <div class="wrapper">
-   <div class="container text-xs-left">
-      <h3>Share it</h3>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-7 info">
+            <h3>Share it</h3>
+            <span (click)="bumpIcon()" [class.isClicked]="facebookClicked" class="btn btn-lg btn-secondary"><i class="fa fa-facebook"></i></span>
+            <span (click)="bumpIcon()" [class.isClicked]="twitterClicked" class="btn btn-lg btn-secondary"><i class="fa fa-twitter"></i></span>
+            <span (click)="bumpIcon()" [class.isClicked]="linkClicked" class="btn btn-lg btn-secondary last-right"><i class="fa fa-link"></i></span>
+         </div>
+         <div class="col-md-5 share-icon">
+            <i [style.top]="shareIconTop+'px'" class="fa fa-share"></i>
+         </div>
+      </div>
    </div>
 </div>

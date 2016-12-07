@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
    styleUrls: [ 'types.css' ]
 })
 export class TypesComponent  {
-   private types = new Array(3);
-   private presentedType;
+   private types: Array<String> = new Array(3);
+   private presentedType: number;
 
    constructor() {
       this.types = [ 'Single choice', 'Multiple Choices', 'Yes or No'];

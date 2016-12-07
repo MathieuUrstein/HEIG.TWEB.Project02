@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
    styleUrls: [ 'intro.css' ]
 })
 export class IntroComponent {
-   private l_el = new Array(12);
-   private r_el = new Array(12);
+   private l_el: Array<String> = new Array(12);
+   private r_el: Array<String> = new Array(12);
 
    constructor() {
       this.newWidth(this.l_el);
@@ -17,19 +17,19 @@ export class IntroComponent {
       this.loopNewWidth(this.r_el);
    }
 
-   loopNewWidth(array) {
+   loopNewWidth(array: Array<String>) {
       setTimeout(() => {
          this.newWidth(array);
          this.loopNewWidth(array);
       }, 5000);
    }
 
-   newWidth(array) {
+   newWidth(array: Array<String>) {
       let min = 1;
       let max = 30;
 
-      for(let i = 0; i < array.length; i++) {
-         array[i] = ((Math.random() * max) + min) + '%';
+      for (let i = 0; i < array.length; i++) {
+         array[i] = (Math.random() * (max - min) + min) + '%';
       }
    }
 }

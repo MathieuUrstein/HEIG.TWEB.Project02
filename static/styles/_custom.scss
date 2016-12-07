@@ -7,6 +7,7 @@ $fa-font-path: "public/fonts" !default;
    box-shadow: $brand-secondary-lighten 0 1px 6px 1px;
    border: none;
    text-shadow: black 0 2px;
+   color: white;
 
    &:hover {
       background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
@@ -15,4 +16,23 @@ $fa-font-path: "public/fonts" !default;
 }
 h1,h2,h3,h4,h5,h6 {
    text-shadow: $brand-primary-lighten 0 1px 2px;
+}
+.btn-secondary {
+   background: linear-gradient(15deg, $brand-primary-lighten, $brand-secondary-lighten);
+   font-family: 'Roboto', sans-serif;
+   font-weight: 900;
+   box-shadow: $brand-secondary-lighten 0 1px 6px 1px;
+   border: none;
+   text-shadow: $brand-secondary-lighten 0 -1px;
+   color: black;
+
+   &:hover {
+      color: white;
+      text-shadow: black 0 2px;
+      background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
+      box-shadow: $brand-secondary 0 1px 6px 1px;
+   }
+}
+.container {
+   padding: 0 30px;
 }

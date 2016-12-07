@@ -1,0 +1,20 @@
+@import "../../../../styles/variables";
+
+.wrapper {
+   background: linear-gradient(15deg, $brand-primary-lighten, $brand-secondary-lighten);
+   padding: 40px 0;
+}
+.start {
+   width: 80%;
+   margin-bottom: 30px;
+}
+.github {
+   padding: 20px 0;
+
+   .first-left {
+      margin-right: 20px;
+   }
+}
+.copyright {
+   padding: 20px 0;
+}
