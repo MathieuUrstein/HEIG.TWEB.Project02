@@ -4,7 +4,7 @@
 This project called **InteractivePolls** is a web application that lets people interact with polls.  
 It is mainly based on the following features:
 
-- Creation of polls of various type.  
+- Creation of polls of various types.  
   We have polls that can be responded by selecting one answer in a list.  
   We have other polls with multiple answers that can be selected.  
   We have also other polls that can be answered with true or false.
