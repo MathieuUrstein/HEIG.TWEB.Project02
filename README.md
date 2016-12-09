@@ -28,10 +28,10 @@ Features that are also implemented are the following about the creation of an ac
 
 ## Technologies
 **InteractivePolls** uses a lot of recent web technologies (including languages) and frameworks.  
-Here, we find a non-exhaustive list:
+Here, you can find a non-exhaustive list:
 
 - Angular 2
-- Mongo
+- MongoDB
 - Mongoose
 - Bootstrap 4
 - Express
@@ -70,4 +70,38 @@ Before executing any command, be sure to have the following technologies install
 - Docker (v1.12.3)
 - Git (v2.11.0 for Windows and v2.10.1 for Mac)
 
-## Install
+### Install
+
+#### Clone
+First, you can clone this repository with this command:
+
+    $ git clone git@github.com:MathieuUrstein/HEIG.TWEB.Project02.git
+
+When you have done this, you can go in the cloned repository.
+
+#### MongoDB
+Now, you need to build a docker image for the MongoDB with the following command:
+
+    $ docker build -t mongo34 .
+    
+Then, you can launch a container based on this builded image with the command:
+
+    $ docker run -p 27017:27017 mongo34
+
+#### NPM
+After that, you need to build the npm dependencies with this command:
+
+    $ npm install
+
+#### Grunt
+Finally, you just need to execute the following command to launch the web application:
+
+    $ grunt
+    
+### Access
+The application is now available on this address:  
+**http://localhost:portARemplacer/**.
+
+## Authors
+- Mathieu Urstein
+- Sébastien Boson
