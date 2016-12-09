@@ -7,8 +7,8 @@
                <li *ngFor="let poll of polls" class="row">
                   <div class="col-md-8 manage">
                      <a routerLink="/edit/{{poll.id}}" class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                     <a routerLink="/p/{{poll.id}}" [class.hovered]="poll.titleHovered" class="btn btn-secondary look"><i class="fa fa-eye"></i></a>
-                     <h5 routerLink="/p/{{poll.id}}" (mouseover)="poll.titleHovered = true" (mouseout)="poll.titleHovered = false">{{poll.title}}</h5>
+                     <a routerLink="/results/{{poll.id}}" [class.hovered]="poll.titleHovered" class="btn btn-secondary look"><i class="fa fa-th-list"></i></a>
+                     <h5 routerLink="/results/{{poll.id}}" (mouseover)="poll.titleHovered = true" (mouseout)="poll.titleHovered = false">{{poll.title}}</h5>
                   </div>
                   <div class="col-md-4 share text-md-right">
                      <a [href]="sanitizeURI('https://www.facebook.com/sharer/sharer.php?u='+baseUrl+poll.id)" target="_blank" class="btn btn-secondary"><i class="fa fa-facebook"></i></a>
@@ -18,6 +18,9 @@
                   <div [class.visible]="poll.share" class="copy-field col-xs-12">
                      <div class="input-group">
                         <input #pollsView id="{{poll.id}}" type="text" class="form-control" [value]="baseUrl + poll.id">
+                        <span class="input-group-btn">
+                           <button routerLink="/p/{{poll.id}}" class="btn btn-secondary" type="button"><i class="fa fa-eye"></i></button>
+                        </span>
                         <span class="input-group-btn">
                            <button (click)="copyPollToClipBoard(poll)" class="btn btn-secondary" type="button">Copy</button>
                         </span>

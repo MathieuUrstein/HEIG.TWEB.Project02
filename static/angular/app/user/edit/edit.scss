@@ -62,7 +62,7 @@
       margin-bottom: 0;
       margin-left: 15px;
    }
-   .state, .yes {
+   .state {
       font-size: 20px;
       color: $brand-primary;
       position: absolute;
@@ -70,7 +70,7 @@
       left: 25px;
       cursor: pointer;
    }
-   .remove-answer, .no {
+   .remove-answer {
       font-size: 20px;
       color: $brand-danger;
       position: absolute;
@@ -78,22 +78,29 @@
       left: 25px;
       cursor: pointer;
    }
+   .yes, .no {
+      font-size: 20px;
+      display: block;
+      text-align: center;
+      padding: 3px;
+      cursor: pointer;
+   }
    .yes {
       color: $brand-success;
-   }
-   .yes, .no {
-      padding: $border-radius;
-      left: 22px;
+      border: 1px solid $brand-success;
+      &.selected {
+         background: $brand-success;
+      }
    }
    .no {
-      top: 40px;
-   }
-   textarea {
-      padding-left: 35px;
+      color: $brand-danger;
+      border: 1px solid $brand-danger;
+      &.selected {
+         background: $brand-danger;
+      }
    }
    .selected {
-      border-radius: 3px;
-      background-color: $brand-primary-darken;
+      border-radius: 5px;
       color: white;
    }
 }

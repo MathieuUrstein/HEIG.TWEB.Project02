@@ -11,6 +11,7 @@ import { UserComponent } from './user/user.component';
 import { AppComponent } from './app.component';
 import { EditComponent } from './user/edit/edit.component';
 import { ParticipateComponent } from './user/participate/participate.component';
+import { ResultsComponent } from './user/results/restults.component';
 
 import { ConnectionService } from './user/connection.service';
 
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
    { path: 'user', component: UserComponent },
    { path: 'new', component: EditComponent },
    { path: 'edit/:id', component: EditComponent },
+   { path: 'results/:id', component: ResultsComponent },
    { path: 'p/:id', component: ParticipateComponent },
    { path: '', component: HomeComponent },
    { path: '**', component: PageNotFoundComponent },

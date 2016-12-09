@@ -1,0 +1,29 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.wrapper {
+   padding: 100px 0;
+}
+h2 {
+   padding-bottom: 15px;
+   margin-bottom: 30px;
+   border-bottom: 2px solid $brand-primary-darken;
+}
+.instructions {
+   padding: 15px;
+   background: linear-gradient(15deg, $brand-primary-lighten, $brand-secondary-lighten);
+   border-radius: $border-radius;
+   margin-bottom: 20px;
+
+   p {
+      margin: 0;
+   }
+}
+.answer {
+   p {
+      border-radius: $border-radius;
+      border: 1px solid $gray-lighter;
+      padding: 15px;
+   }
+}
+

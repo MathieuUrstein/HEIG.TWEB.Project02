@@ -10,17 +10,62 @@ h2 {
    border-bottom: 2px solid $brand-primary-darken;
 }
 .state {
+   position: absolute;
    font-size: 20px;
    color: $brand-secondary;
-   cursor: pointer;
+   left: 30px;
+   top: 19px;
 }
 .yes, .no {
    font-size: 20px;
    cursor: pointer;
+   padding: 5px;
+   display: block;
+   text-align: center;
+   border-radius: 3px;
 }
 .yes {
    color: $brand-success;
+   top: 19px;
+   left: 30px;
+   border: 1px solid $brand-success;
+   &.selected {
+      background-color: $brand-success;
+   }
 }
 .no {
    color: $brand-danger;
+   top: 19px;
+   right: 30px;
+   border: 1px solid $brand-danger;
+   &.selected {
+      background-color: $brand-danger;
+   }
+}
+.selected {
+   color: white;
+}
+.instructions {
+   padding: 15px;
+   background: linear-gradient(15deg, $brand-primary-lighten, $brand-secondary-lighten);
+   border-radius: $border-radius;
+   margin-bottom: 20px;
+
+   p {
+      margin: 0;
+   }
+}
+.answer {
+   position: relative;
+
+   p {
+      border-radius: $border-radius;
+      border: 1px solid $gray-lighter;
+      padding: 15px 15px 15px 45px;
+   }
+   &.single, &.multiple {
+      p {
+         cursor: pointer;
+      }
+   }
 }

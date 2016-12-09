@@ -12,47 +12,38 @@
                   </div>
                   <div *ngIf="poll.type == 'single'" class="col-xs-12 answers">
                      <div class="add-answers">
-                        <h6>Choose the correct answer</h6>
+                        <h6>Answers</h6>
                      </div>
                      <div *ngFor="let answer of poll.answers" class="answer single">
                         <div class="row">
                            <div class="col-xs-12">
-                              <i [class.fa-circle-o]="!answer.correct"
-                                 [class.fa-dot-circle-o]="answer.correct"
-                                 class="state fa"></i>
-                              <p (click)="singleSelect(poll, answer)">{{ answer.answer }}</p>
+                              <p>{{ answer.answer }}</p>
                            </div>
                         </div>
                      </div>
                   </div>
                   <div *ngIf="poll.type == 'multiple'" class="col-xs-12 answers">
                      <div class="add-answers">
-                        <h6>Choose the correct answers</h6>
+                        <h6>Answers</h6>
                      </div>
                      <div *ngFor="let answer of poll.answers" class="answer multiple">
                         <div class="row">
                            <div class="col-xs-12">
-                              <i [class.fa-square-o]="!answer.correct"
-                                 [class.fa-check-square-o]="answer.correct"
-                                 class="state fa"></i>
-                              <p (click)="multiSelect(answer)">{{ answer.answer }}</p>
+                              <p>{{ answer.answer }}</p>
                            </div>
                         </div>
                      </div>
                   </div>
                   <div *ngIf="poll.type == 'yesOrNo'" class="col-xs-12 answers">
                      <div class="add-answers">
-                        <h6>True or false ?</h6>
+                        <h6>Answer</h6>
                      </div>
                      <div *ngFor="let answer of poll.answers" class="answer yesOrNo">
                         <div class="row">
-                           <div class="col-xs-6">
-                              <i (click)="yesNoSelect(answer, false)" [class.selected]="!answer.correct"
-                                 class="no fa fa-thumbs-o-down"></i>
-                           </div>
-                           <div class="col-xs-6">
-                              <i (click)="yesNoSelect(answer, true)" [class.selected]="answer.correct"
-                                 class="yes fa fa-thumbs-o-up"></i>
+                           <div class="col-xs-12">
+                              <i class="yes fa fa-thumbs-o-up"></i>
+                              <i class="no fa fa-thumbs-o-down"></i>
+                              <p>{{ answer.answer }}</p>
                            </div>
                         </div>
                      </div>
@@ -62,7 +53,6 @@
                   </div>
                </div>
             </div>
-            <a class="btn btn-block btn-lg btn-primary">Submit</a>
          </div>
       </div>
    </div>
