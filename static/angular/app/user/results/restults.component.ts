@@ -19,13 +19,16 @@ export class ResultsComponent  {
          question: 'This is the single choice question',
          answers: [{
             answer: 'Answer 1',
-            correct: false
+            correct: false,
+            percent: 22
          }, {
             answer: 'Answer 2',
-            correct: true
+            correct: true,
+            percent: 71
          }, {
             answer: 'Answer 3',
-            correct: false
+            correct: false,
+            percent: 7
          }]
       });
       this.polls.push({
@@ -33,21 +36,25 @@ export class ResultsComponent  {
          question: 'This is multiple choices question',
          answers: [{
             answer: 'Answer 1',
-            correct: false
+            correct: false,
+            percent: 45
          }, {
             answer: 'Answer 2',
-            correct: true
+            correct: true,
+            percent: 37
          }, {
             answer: 'Answer 3',
-            correct: true
+            correct: true,
+            percent: 18
          }]
       });
       this.polls.push({
          type: 'yesOrNo',
          question: 'This is the yes or no question',
          answers: [{
-            answer: 'Answer 1',
-            correct: true
+            answer: '',
+            correct: true,
+            percent: 55
          }]
       });
    }
