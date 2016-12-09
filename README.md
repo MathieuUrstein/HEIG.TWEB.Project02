@@ -1,7 +1,7 @@
 # HEIG.TWEB.Project02
 
 ## Description
-This project called **InteractivePolls** is a web application that lets people interact with polls.
+This project called **InteractivePolls** is a web application that lets people interact with polls.  
 It is mainly based on the following features:
 
 - Creation of polls of various type.  
@@ -27,3 +27,47 @@ Features that are also implemented are the following about the creation of an ac
 - A registered user has access to specific features (for example, he can create new polls).
 
 ## Technologies
+**InteractivePolls** uses a lot of recent web technologies (including languages) and frameworks.  
+Here, we find a non-exhaustive list:
+
+- Angular 2
+- Mongo
+- Mongoose
+- Bootstrap 4
+- Express
+- Font Awesome
+- RxJS
+- TypeScript
+- Chai
+- Grunt
+- Mocha
+- TSLint
+- NodeJS
+- NPM
+- Docker
+- Git
+- Sass
+- HTML
+- CSS
+- JavaScript
+
+## Landing page
+You can go to the application landing page with the following link:  
+**http://www.aRemplacer.ch**.
+
+## InteractivePolls page
+If you directly want discover the web application, you can follow this link:  
+**http://www.aRemplacer.ch**.
+
+## Installation
+If you want to install the web application on your computer (locally), you have to read the instructions below.
+
+### Prerequisites 
+Before executing any command, be sure to have the following technologies installed (with the given version):
+
+- NodeJS (v6.9.2 LTS) 
+- NPM (v4.0.3)
+- Docker (v1.12.3)
+- Git (v2.11.0 for Windows and v2.10.1 for Mac)
+
+## Install
