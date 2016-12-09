@@ -102,6 +102,11 @@ Finally, you just need to execute the following command to launch the web applic
 The application is now available on this address:  
 **http://localhost:portARemplacer/**.
 
+## Mockups
+Here, you can find a global graphical representation of the web application in several screenshots.
+
+
+
 ## Authors
 - Mathieu Urstein
 - Sébastien Boson
