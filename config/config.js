@@ -11,7 +11,7 @@ var config = {
          name: 'project02'
       },
       port: process.env.PORT || 3000,
-      db: 'mongodb://localhost/project02-development'
+      db: process.env.MONGO_URI || 'mongodb://localhost/project02-development'
    },
 
    test: {
@@ -21,7 +21,7 @@ var config = {
          name: 'project02'
       },
       port: process.env.PORT || 3000,
-      db: 'mongodb://localhost/project02-test'
+      db: process.env.MONGO_URI || 'mongodb://localhost/project02-test'
    },
 
    production: {
@@ -31,7 +31,7 @@ var config = {
          name: 'project02'
       },
       port: process.env.PORT || 3000,
-      db: 'mongodb://localhost/project02-production'
+      db: process.env.MONGO_URI || 'mongodb://localhost/project02-production'
    }
 };
 
