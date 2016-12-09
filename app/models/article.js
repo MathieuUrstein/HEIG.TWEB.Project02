@@ -1,4 +1,5 @@
 // Example model
+/*
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -13,4 +14,4 @@ ArticleSchema.virtual('date').get(function(){
 });
 
 mongoose.model('Article', ArticleSchema);
-
+*/

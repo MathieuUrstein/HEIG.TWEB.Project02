@@ -195,4 +195,11 @@ module.exports = function (grunt) {
       'develop',
       'watch'
    ]);
+
+   grunt.registerTask('build', [
+      'copy',
+      'sass',
+      'ts',
+      'develop'
+   ]);
 };

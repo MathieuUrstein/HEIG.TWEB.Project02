@@ -4,11 +4,13 @@ var glob = require('glob');
 var mongoose = require('mongoose');
 
 // Connect to database
+/*
 mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', function () {
    throw new Error('unable to connect to database at ' + config.db);
 });
+*/
 
 // Instantiate express
 var app = express();
