@@ -4,7 +4,6 @@
    "private": true,
    "main": "app.js",
    "scripts": {
-      "postinstall": "grunt build",
       "start": "node app.js"
    },
    "dependencies": {
