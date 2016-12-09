@@ -1,0 +1,26 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.wrapper {
+   padding: 100px 0;
+}
+h2 {
+   padding-bottom: 15px;
+   margin-bottom: 30px;
+   border-bottom: 2px solid $brand-primary-darken;
+}
+.state {
+   font-size: 20px;
+   color: $brand-secondary;
+   cursor: pointer;
+}
+.yes, .no {
+   font-size: 20px;
+   cursor: pointer;
+}
+.yes {
+   color: $brand-success;
+}
+.no {
+   color: $brand-danger;
+}

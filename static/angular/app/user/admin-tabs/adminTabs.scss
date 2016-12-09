@@ -1,0 +1,22 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.nav {
+   display: block;
+}
+.nav-tabs .nav-item + .nav-item {
+   margin-left: 0;
+}
+.nav-item {
+   width: 33.32%;
+   padding: 0 5px;
+}
+.nav-link {
+   font-size: 22px;
+   text-align: center;
+   display: block;
+   cursor: pointer;
+}
+.disabled {
+   pointer-events: none;
+}

@@ -1,0 +1,102 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.wrapper {
+   padding: 100px 0;
+}
+.creation {
+   margin: 40px 0;
+}
+.pending-polls {
+   margin: 20px 0;
+}
+.add-poll {
+   width: 30%;
+   display: inline-block;
+}
+.multi {
+   margin: 0 5px;
+}
+.instructions {
+   margin-bottom: 10px;
+
+   h5 {
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      margin-bottom: 0;
+      margin-left: 15px;
+   }
+   .type {
+      float: right;
+      color: $brand-secondary-darken;
+      font-size: 20px;
+      margin-top: 5px;
+   }
+}
+.last-sep {
+   hr {
+      border-top: 1px solid $gray-lighter;
+      margin: 20px 0 30px;
+   }
+}
+.poll:last-child .last-sep {
+   hr {
+      border-top: 2px solid $brand-primary-darken;
+      margin: 20px 0 20px;
+   }
+}
+.big-sep {
+   border-top: 2px solid $brand-primary-darken;
+}
+.add-answers {
+   margin-bottom: 10px;
+}
+.answers {
+   position: relative;
+
+   h6 {
+      display: inline-block;
+      position: relative;
+      top: 3px;
+      margin-bottom: 0;
+      margin-left: 15px;
+   }
+   .state, .yes {
+      font-size: 20px;
+      color: $brand-primary;
+      position: absolute;
+      top: 10px;
+      left: 25px;
+      cursor: pointer;
+   }
+   .remove-answer, .no {
+      font-size: 20px;
+      color: $brand-danger;
+      position: absolute;
+      top: 30px;
+      left: 25px;
+      cursor: pointer;
+   }
+   .yes {
+      color: $brand-success;
+   }
+   .yes, .no {
+      padding: $border-radius;
+      left: 22px;
+   }
+   .no {
+      top: 40px;
+   }
+   textarea {
+      padding-left: 35px;
+   }
+   .selected {
+      border-radius: 3px;
+      background-color: $brand-primary-darken;
+      color: white;
+   }
+}
+.disabled {
+   cursor: not-allowed;
+}

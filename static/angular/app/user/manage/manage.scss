@@ -1,0 +1,51 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/bootstrap/mixins";
+
+.wrapper {
+   padding: 100px 0;
+}
+.polls {
+   margin: 40px 0;
+
+   h5 {
+      margin: 8px 0 0 15px;
+      cursor: pointer;
+      display: inline;
+   }
+
+   li {
+      padding: 15px 0;
+      border-top: 1px solid $brand-secondary-lighten;
+   }
+   li:first-child {
+      border-top: none;
+   }
+}
+.manage {
+   .btn {
+      margin-right: 5px;
+   }
+}
+.share {
+   .btn {
+      margin-right: 5px;
+   }
+   @include media-breakpoint-down(sm) {
+      margin-top: 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding-top: 10px;
+   }
+}
+.copy-field {
+   margin: 0;
+   height: 0;
+   overflow: hidden;
+   transition: height 1s, margin 1s;
+   visibility: hidden;
+
+   &.visible {
+      margin: 15px 0;
+      height: 38px;
+      visibility: visible;
+   }
+}

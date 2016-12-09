@@ -3,8 +3,8 @@
       <div class="row">
          <div class="col-md-7 info hidden-lg-up">
             <h3>Add some questions to your poll</h3>
-            <span [class.isClicked]="addClicked" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
-            <span [class.isClicked]="removeClicked" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
+            <span [class.hovered]="addClicked" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
+            <span [class.hovered]="removeClicked" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
          </div>
          <div class="col-md-5">
             <div class="type type-2">
@@ -44,8 +44,8 @@
          </div>
          <div class="col-md-7 info text-xs-right hidden-md-down">
             <h3>Add some questions to your polls</h3>
-            <span [class.isClicked]="addClicked" (click)="addOne()" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
-            <span [class.isClicked]="removeClicked" (click)="removeOne()" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
+            <span [class.hovered]="addClicked" (click)="addOne()" class="btn btn-lg btn-secondary first-left"><i class="fa fa-plus"></i></span>
+            <span [class.hovered]="removeClicked" (click)="removeOne()" class="btn btn-lg btn-secondary"><i class="fa fa-minus"></i></span>
          </div>
       </div>
    </div>

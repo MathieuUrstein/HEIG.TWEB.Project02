@@ -28,9 +28,3 @@
    text-shadow: $brand-secondary-lighten 0 4px 8px;
    transition: top 0.5s;
 }
-.isClicked {
-   color: white;
-   text-shadow: black 0 2px;
-   background: linear-gradient(10deg, $brand-primary-darken, $brand-secondary-darken);
-   box-shadow: $brand-secondary 0 1px 6px 1px;
-}

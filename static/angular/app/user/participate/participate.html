@@ -1,0 +1,71 @@
+<header-menu></header-menu>
+<div class="wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-xs-12">
+            <h2>{{title}}</h2>
+            <div class="poll-list">
+               <div *ngFor="let poll of polls" class="row poll">
+                  <div class="col-xs-12 instructions">
+                     <h5>Question {{ polls.indexOf(poll) + 1 }}</h5>
+                  </div>
+                  <div class="col-xs-12">
+                     <p>{{poll.question}}</p>
+                  </div>
+                  <div *ngIf="poll.type == 'single'" class="col-xs-12 answers">
+                     <div class="add-answers">
+                        <h6>Choose the correct answer</h6>
+                     </div>
+                     <div *ngFor="let answer of poll.answers" class="answer">
+                        <div class="row">
+                           <div class="col-xs-12">
+                              <i (click)="singleSelect(poll, answer)"
+                                 [class.fa-circle-o]="!answer.correct"
+                                 [class.fa-dot-circle-o]="answer.correct"
+                                 class="state fa"></i>
+                              <p>{{ answer.answer }}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div *ngIf="poll.type == 'multiple'" class="col-xs-12 answers">
+                     <div class="add-answers">
+                        <h6>Choose the correct answers</h6>
+                     </div>
+                     <div *ngFor="let answer of poll.answers" class="answer">
+                        <div class="row">
+                           <div class="col-xs-12">
+                              <i (click)="multiSelect(answer)"
+                                 [class.fa-square-o]="!answer.correct"
+                                 [class.fa-check-square-o]="answer.correct"
+                                 class="state fa"></i>
+                              <p>{{ answer.answer }}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div *ngIf="poll.type == 'yesOrNo'" class="col-xs-12 answers">
+                     <div class="add-answers">
+                        <h6>Choose the correct answer</h6>
+                     </div>
+                     <div *ngFor="let answer of poll.answers" class="answer">
+                        <div class="row">
+                           <div class="col-xs-12">
+                              <i (click)="yesNoSelect(answer, true)" [class.selected]="answer.correct"
+                                 class="yes fa fa-thumbs-o-up"></i>
+                              <i (click)="yesNoSelect(answer, false)" [class.selected]="!answer.correct"
+                                 class="no fa fa-thumbs-o-down"></i>
+                              <p>{{ answer.answer }}</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="last-sep col-xs-12">
+                     <hr>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

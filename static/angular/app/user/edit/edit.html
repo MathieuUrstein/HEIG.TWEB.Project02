@@ -1,0 +1,104 @@
+<header-menu></header-menu>
+<div class="wrapper">
+   <div class="container">
+      <admin-tabs></admin-tabs>
+      <div class="row creation">
+         <div class="col-md-12">
+            <div class="input-group input-group-lg">
+               <span class="input-group-addon">Title</span>
+               <input [(ngModel)]="name" type="text" class="form-control">
+            </div>
+            <hr class="big-sep">
+            <div class="pending-polls">
+               <div class="poll-list">
+                  <div *ngFor="let poll of polls" class="row poll">
+                     <div class="col-xs-12 instructions">
+                        <a (click)="polls.splice(polls.indexOf(poll), 1)" class="close btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
+                        <i [class.fa-circle-o]="poll.type == 'single'"
+                           [class.fa-square-o]="poll.type == 'multiple'"
+                           [class.fa-thumbs-o-up]="poll.type == 'yesOrNo'"
+                           class="type fa"></i>
+                        <h5>Question {{ polls.indexOf(poll) + 1 }}</h5>
+                     </div>
+                     <div class="col-xs-12">
+                        <div class="form-group">
+                           <textarea [(ngModel)]="poll.question" class="form-control" rows="3"></textarea>
+                        </div>
+                     </div>
+                     <div *ngIf="poll.type == 'single'" class="col-xs-12 answers">
+                        <div class="add-answers">
+                           <a (click)="poll.answers.push({answer: '', correct: false})" class="add btn btn-sm btn-secondary"><i class="fa fa-plus"></i></a>
+                           <h6>Answers</h6>
+                        </div>
+                        <div *ngFor="let answer of poll.answers" class="answer">
+                           <div class="row">
+                              <div class="col-xs-12">
+                                 <i (click)="singleSelect(poll, answer)"
+                                    [class.fa-circle-o]="!answer.correct"
+                                    [class.fa-dot-circle-o]="answer.correct"
+                                    class="state fa"></i>
+                                 <i (click)="removeAnswer(poll, answer)" class="fa remove-answer fa-times"></i>
+                                 <div class="form-group">
+                                    <textarea [(ngModel)]="answer.answer" class="form-control" rows="2"></textarea>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngIf="poll.type == 'multiple'" class="col-xs-12 answers">
+                        <div class="add-answers">
+                           <a (click)="poll.answers.push({answer: '', correct: false})" class="add btn btn-sm btn-secondary"><i class="fa fa-plus"></i></a>
+                           <h6>Answers</h6>
+                        </div>
+                        <div *ngFor="let answer of poll.answers" class="answer">
+                           <div class="row">
+                              <div class="col-xs-12">
+                                 <i (click)="multiSelect(answer)"
+                                    [class.fa-square-o]="!answer.correct"
+                                    [class.fa-check-square-o]="answer.correct"
+                                    class="state fa"></i>
+                                 <i (click)="removeAnswer(poll, answer)" class="fa remove-answer fa-times"></i>
+                                 <div class="form-group">
+                                    <textarea [(ngModel)]="answer.answer" class="form-control" rows="2"></textarea>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div *ngIf="poll.type == 'yesOrNo'" class="col-xs-12 answers">
+                        <div class="add-answers">
+                           <a class="add btn btn-sm btn-secondary disabled"><i class="fa fa-plus"></i></a>
+                           <h6>Answers</h6>
+                        </div>
+                        <div *ngFor="let answer of poll.answers" class="answer">
+                           <div class="row">
+                              <div class="col-xs-12">
+                                 <i (click)="yesNoSelect(answer, true)" [class.selected]="answer.correct"
+                                    class="yes fa fa-thumbs-o-up"></i>
+                                 <i (click)="yesNoSelect(answer, false)" [class.selected]="!answer.correct"
+                                    class="no fa fa-thumbs-o-down"></i>
+                                 <div class="form-group">
+                                    <textarea [(ngModel)]="answer.answer" class="form-control" rows="3"></textarea>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="last-sep col-xs-12">
+                        <hr>
+                     </div>
+                  </div>
+               </div>
+               <div class="text-xs-center">
+                  <a *ngIf="!choiceMode" (click)="choiceMode = true" class="add-poll btn btn-block btn-secondary"><i class="fa fa-plus"></i></a>
+                  <a *ngIf="choiceMode" (click)="addPoll('single')" class="single btn btn-secondary"><i class="fa fa-circle-o"></i> Single choice</a>
+                  <a *ngIf="choiceMode" (click)="addPoll('multiple')" class="multi btn btn-secondary"><i class="fa fa-square-o"></i> Mulitple choices</a>
+                  <a *ngIf="choiceMode" (click)="addPoll('yesOrNo')" class="yes-no btn btn-secondary"><i class="fa fa-thumbs-o-up"></i> Yes or no</a>
+               </div>
+            </div>
+            <hr class="big-sep">
+               <a class="btn btn-block btn-lg btn-primary">Create the poll</a>
+         </div>
+      </div>
+   </div>
+</div>
