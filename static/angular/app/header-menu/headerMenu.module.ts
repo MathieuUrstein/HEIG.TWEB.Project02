@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
    imports: [ RouterModule, CommonModule ],
-   declarations: [ HeaderMenuComponent,  ],
-   exports:      [ HeaderMenuComponent ]
+   declarations: [ HeaderMenuComponent ],
+   exports: [ HeaderMenuComponent ]
 })
 export class HeaderMenuModule {}

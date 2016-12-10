@@ -1,8 +1,8 @@
-@import "../../../../styles/variables";
-@import "../../../../styles/bootstrap/mixins";
+@import "../../../styles/variables";
+@import "../../../styles/bootstrap/mixins";
 
 .wrapper {
-   padding: 100px 0;
+   padding-top: 100px;
 }
 h2 {
    padding-bottom: 15px;
@@ -68,4 +68,7 @@ h2 {
          cursor: pointer;
       }
    }
+}
+.submit {
+   margin-top: 40px;
 }

@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+@import "../../../styles/bootstrap/mixins";
+
+.footer {
+   margin-top: 100px;
+   border-top: 1px solid $brand-primary-lighten;
+}
+.copyright {
+   padding: 20px 0;
+   color: $brand-primary-darken;
+}
+.responsive {
+   i {
+      padding: 20px 5px;
+      font-size: 25px;
+      color: $brand-secondary-darken;
+   }
+}

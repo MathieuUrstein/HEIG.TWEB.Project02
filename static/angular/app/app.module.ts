@@ -1,40 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HeaderMenuModule } from './header-menu/headerMenu.module';
 import { HomeModule } from './home/home.module';
-import { RouterModule, Routes } from '@angular/router';
 import { UserModule } from './user/user.module';
 
-import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './pageNetFound.component';
-import { UserComponent } from './user/user.component';
 import { AppComponent } from './app.component';
-import { EditComponent } from './user/edit/edit.component';
-import { ParticipateComponent } from './user/participate/participate.component';
-import { ResultsComponent } from './user/results/restults.component';
+import { ParticipateComponent } from './participate/participate.component';
+import { ResultsComponent } from './results/restults.component';
 
 import { ConnectionService } from './user/connection.service';
+import { SharedModule } from './shared.module';
 
-
-const appRoutes: Routes = [
-   { path: 'user', component: UserComponent },
-   { path: 'new', component: EditComponent },
-   { path: 'edit/:id', component: EditComponent },
-   { path: 'results/:id', component: ResultsComponent },
-   { path: 'p/:id', component: ParticipateComponent },
-   { path: '', component: HomeComponent },
-   { path: '**', component: PageNotFoundComponent },
-];
 
 @NgModule({
    imports: [
+      SharedModule,
       BrowserModule,
-      HeaderMenuModule,
       HomeModule,
-      UserModule,
-      RouterModule.forRoot(appRoutes),
+      UserModule
    ],
-   declarations: [ AppComponent, PageNotFoundComponent ],
+   declarations: [
+      AppComponent,
+      PageNotFoundComponent,
+      ResultsComponent,
+      ParticipateComponent
+   ],
    bootstrap:    [ AppComponent ],
    providers: [ ConnectionService ]
 })

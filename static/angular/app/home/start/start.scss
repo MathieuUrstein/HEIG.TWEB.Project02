@@ -16,5 +16,13 @@
    }
 }
 .copyright {
-   padding: 20px 0;
+   padding: 20px 0 0;
+   color: $brand-primary-darken;
+}
+.responsive {
+   i {
+      padding: 20px 5px 0;
+      font-size: 25px;
+      color: $brand-secondary-darken;
+   }
 }
