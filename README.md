@@ -51,7 +51,8 @@ Here, you can find a non-exhaustive list:
 
 ## Landing page
 You can go to the application landing page with the following link:  
-**http://www.aRemplacer.ch**.
+
+    https://heig-tweb-project02.herokuapp.com
 
 ## Installation
 If you want to install the web application on your computer (locally), you have to read the following instructions.
