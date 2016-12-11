@@ -96,7 +96,8 @@ Finally, you just need to execute the following command to launch the web applic
     
 ### Access
 The application is now available on this address:  
-(http://localhost:3000/)[http://localhost:3000/]
+[http://localhost:3000/](http://localhost:3000/)
+
 *The port will depend on the port configuration found in config/config.js*
 *The localhost address depends on your host configuration*
 *But typically http://localhost:3000 should be correct*
