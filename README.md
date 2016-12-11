@@ -48,11 +48,12 @@ Here, you can find a non-exhaustive list:
 - HTML
 - CSS
 - JavaScript
+- WebSockets
+- Socket.io
 
 ## Landing page
 You can go to the application landing page with the following link:  
-
-    https://heig-tweb-project02.herokuapp.com
+[https://heig-tweb-project02.herokuapp.com](https://heig-tweb-project02.herokuapp.com)
 
 ## Installation
 If you want to install the web application on your computer (locally), you have to read the following instructions.
@@ -95,8 +96,10 @@ Finally, you just need to execute the following command to launch the web applic
     
 ### Access
 The application is now available on this address:  
-
-    http://localhost:3000/
+(http://localhost:3000/)[http://localhost:3000/]
+*The port will depend on the port configuration found in config/config.js*
+*The localhost address depends on your host configuration*
+*But typically http://localhost:3000 should be correct*
 
 ## Configs
 Configs can be found in
