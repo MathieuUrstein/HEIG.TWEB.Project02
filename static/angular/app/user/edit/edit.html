@@ -13,7 +13,7 @@
                <div class="poll-list">
                   <div *ngFor="let poll of polls" class="row poll">
                      <div class="col-xs-12 instructions">
-                        <a (click)="polls.splice(polls.indexOf(poll), 1)" class="close btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
+                        <a (click)="removePoll(poll)" class="close btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
                         <h5>Question {{ polls.indexOf(poll) + 1 }}</h5>
                      </div>
                      <div class="col-xs-12">
@@ -65,12 +65,12 @@
                         <div *ngFor="let answer of poll.answers" class="answer yesOrNo">
                            <div class="row">
                               <div class="col-xs-6">
-                                 <i (click)="yesNoSelect(answer, false)" [class.selected]="!answer.correct"
-                                    class="no fa fa-thumbs-o-down"></i>
-                              </div>
-                              <div class="col-xs-6">
                                  <i (click)="yesNoSelect(answer, true)" [class.selected]="answer.correct"
                                     class="yes fa fa-thumbs-o-up"></i>
+                              </div>
+                              <div class="col-xs-6">
+                                 <i (click)="yesNoSelect(answer, false)" [class.selected]="!answer.correct"
+                                    class="no fa fa-thumbs-o-down"></i>
                               </div>
                            </div>
                         </div>
@@ -93,4 +93,3 @@
       </div>
    </div>
 </div>
-<footer></footer>

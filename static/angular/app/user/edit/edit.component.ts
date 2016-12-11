@@ -39,7 +39,13 @@ export class EditComponent  {
       this.choiceMode = false;
    }
 
+   removePoll(poll: any) {
+      this.polls.splice(this.polls.indexOf(poll), 1);
+   }
+
    removeAnswer(poll: any, answer: any) {
+
+      /*
       poll.answers.splice(poll.answers.indexOf(answer), 1);
 
       if (poll.type === 'single') {
@@ -52,7 +58,7 @@ export class EditComponent  {
          if (noTrue) {
             poll.answers[0].correct = true;
          }
-      }
+      }*/
    }
 
    singleSelect(poll: any, answer: any) {
