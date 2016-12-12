@@ -12,8 +12,27 @@ export class EditComponent  {
    private choiceMode: boolean = false;
    private name: string = '';
    private polls: Array<Poll> = new Array(0);
-   private answerPopOvers: Array<AnswerPopOver> = new Array(0);
-   private pollPopOvers: Array<PollPopOver> = new Array(0);
+   private answerPopOver: AnswerPopOver = {
+      visible: false,
+      title: 'Are you shure to remove this answer ?',
+      direction: 'right',
+      poll: null,
+      answer: null,
+      position: {
+         x: -1000,
+         y: -1000
+      }
+   };
+   private pollPopOver: PollPopOver = {
+      visible: false,
+      title: 'Are you shure to remove this poll ?',
+      direction: 'right',
+      poll: null,
+      position: {
+         x: -1000,
+         y: -1000
+      }
+   };
    private popOverPositionMargin: number = 20;
    private popOverHeight: number = 75;
 
@@ -63,29 +82,21 @@ export class EditComponent  {
 
    askRemovePoll(poll: Poll, event: MouseEvent) {
       let elemPosition: any = this.cumulativeOffset(event.srcElement);
-      this.pollPopOvers.push({
-         title: 'Are you shure to remove this poll ?',
-         direction: 'right',
-         poll: poll,
-         position: {
-            x: elemPosition.left + this.popOverPositionMargin,
-            y: elemPosition.top - (this.popOverHeight / 2)
-         }
-      });
+
+      this.pollPopOver.visible = true;
+      this.pollPopOver.poll = poll;
+      this.pollPopOver.position.x = elemPosition.left + this.popOverPositionMargin;
+      this.pollPopOver.position.y = elemPosition.top - (this.popOverHeight / 2);
    }
 
    askRemoveAnswer(poll: Poll, answer: Answer, event: MouseEvent) {
       let elemPosition: any = this.cumulativeOffset(event.srcElement);
-      this.answerPopOvers.push({
-         title: 'Are you shure to remove this answer ?',
-         direction: 'right',
-         poll: poll,
-         answer: answer,
-         position: {
-            x: elemPosition.left + this.popOverPositionMargin,
-            y: elemPosition.top - (this.popOverHeight / 2)
-         }
-      });
+
+      this.answerPopOver.visible = true;
+      this.answerPopOver.poll = poll;
+      this.answerPopOver.answer = answer;
+      this.answerPopOver.position.x = elemPosition.left + this.popOverPositionMargin;
+      this.answerPopOver.position.y = elemPosition.top - (this.popOverHeight / 2);
    }
 
    removeAnswer(poll: Poll, answer: Answer) {
@@ -104,12 +115,12 @@ export class EditComponent  {
       }
    }
 
-   removePollPopOver(pollPopOver: PollPopOver) {
-      this.pollPopOvers.splice(this.pollPopOvers.indexOf(pollPopOver), 1);
+   removePollPopOver() {
+      this.pollPopOver.visible = false;
    }
 
-   removeAnswerPopOver(answerPopOver: AnswerPopOver) {
-      this.answerPopOvers.splice(this.answerPopOvers.indexOf(answerPopOver), 1);
+   removeAnswerPopOver() {
+      this.answerPopOver.visible = false;
    }
 
    singleSelect(poll: Poll, answer: Answer) {
@@ -140,6 +151,7 @@ interface Answer {
 }
 
 interface PollPopOver {
+   visible: boolean;
    title: string;
    direction: string;
    poll: Poll;
@@ -150,6 +162,7 @@ interface PollPopOver {
 }
 
 interface AnswerPopOver {
+   visible: boolean;
    title: string;
    direction: string;
    poll: Poll;

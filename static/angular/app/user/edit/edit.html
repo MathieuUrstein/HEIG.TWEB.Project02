@@ -94,33 +94,33 @@
    </div>
 </div>
 <footer></footer>
-<div  *ngFor="let answerPopOver of answerPopOvers"
-      [style.left]="answerPopOver.position.x + 'px'"
+<div  [style.left]="answerPopOver.position.x + 'px'"
       [style.top]="answerPopOver.position.y + 'px'"
+      [class.invisible]="!answerPopOver.visible"
       class="popover popover-{{answerPopOver.direction}}"
       style="position: absolute"
-      (clickOutside)="removeAnswerPopOver(answerPopOver)">
+      (clickOutside)="removeAnswerPopOver()">
    <div class="popover-arrow"></div>
    <h3 class="popover-title">{{answerPopOver.title}}</h3>
    <div class="popover-content">
       <div class="btn-group justified">
-         <a (click)="removeAnswerPopOver(answerPopOver)" class="btn btn-secondary">Cancel</a>
-         <a (click)="removeAnswer(answerPopOver.poll, answerPopOver.answer); removeAnswerPopOver(answerPopOver)" class="btn btn-primary">Ok</a>
+         <a (click)="removeAnswerPopOver()" class="btn btn-secondary">Cancel</a>
+         <a (click)="removeAnswer(answerPopOver.poll, answerPopOver.answer); removeAnswerPopOver()" class="btn btn-primary">Ok</a>
       </div>
    </div>
 </div>
-<div  *ngFor="let pollPopOver of pollPopOvers"
-      [style.left]="pollPopOver.position.x + 'px'"
+<div  [style.left]="pollPopOver.position.x + 'px'"
       [style.top]="pollPopOver.position.y + 'px'"
+      [class.invisible]="!pollPopOver.visible"
       class="popover popover-{{pollPopOver.direction}}"
       style="position: absolute"
-      (clickOutside)="removePollPopOver(pollPopOver)">
+      (clickOutside)="removePollPopOver()">
    <div class="popover-arrow"></div>
    <h3 class="popover-title">{{pollPopOver.title}}</h3>
    <div class="popover-content">
       <div class="btn-group justified">
-         <a (click)="removePollPopOver(pollPopOver)" class="btn btn-secondary">Cancel</a>
-         <a (click)="removePoll(pollPopOver.poll); removePollPopOver(pollPopOver)" class="btn btn-primary">Ok</a>
+         <a (click)="removePollPopOver()" class="btn btn-secondary">Cancel</a>
+         <a (click)="removePoll(pollPopOver.poll); removePollPopOver()" class="btn btn-primary">Ok</a>
       </div>
    </div>
 </div>
