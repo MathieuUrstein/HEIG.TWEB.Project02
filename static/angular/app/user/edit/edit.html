@@ -13,7 +13,7 @@
                <div class="poll-list">
                   <div *ngFor="let poll of polls" class="row poll">
                      <div class="col-xs-12 instructions">
-                        <a (click)="removePoll(poll)" class="close btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
+                        <a (click)="askRemovePoll(poll, $event); $event.stopPropagation()" class="close btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
                         <h5>Question {{ polls.indexOf(poll) + 1 }}</h5>
                      </div>
                      <div class="col-xs-12">
@@ -33,7 +33,7 @@
                                     [class.fa-circle-o]="!answer.correct"
                                     [class.fa-dot-circle-o]="answer.correct"
                                     class="state fa"></i>
-                                 <i (click)="removeAnswer(poll, answer)" class="fa remove-answer fa-times"></i>
+                                 <i (click)="askRemoveAnswer(poll, answer, $event); $event.stopPropagation()" class="fa remove-answer fa-times"></i>
                                  <div class="form-group">
                                     <textarea [(ngModel)]="answer.answer" class="form-control" rows="2"></textarea>
                                  </div>
@@ -53,7 +53,7 @@
                                     [class.fa-square-o]="!answer.correct"
                                     [class.fa-check-square-o]="answer.correct"
                                     class="state fa"></i>
-                                 <i (click)="removeAnswer(poll, answer)" class="fa remove-answer fa-times"></i>
+                                 <i (click)="askRemoveAnswer(poll, answer, $event); $event.stopPropagation()" class="fa remove-answer fa-times"></i>
                                  <div class="form-group">
                                     <textarea [(ngModel)]="answer.answer" class="form-control" rows="2"></textarea>
                                  </div>
@@ -90,6 +90,37 @@
             <hr class="big-sep">
                <a class="btn btn-block btn-lg btn-primary">Create the poll</a>
          </div>
+      </div>
+   </div>
+</div>
+<footer></footer>
+<div  *ngFor="let answerPopOver of answerPopOvers"
+      [style.left]="answerPopOver.position.x + 'px'"
+      [style.top]="answerPopOver.position.y + 'px'"
+      class="popover popover-{{answerPopOver.direction}}"
+      style="position: absolute"
+      (clickOutside)="removeAnswerPopOver(answerPopOver)">
+   <div class="popover-arrow"></div>
+   <h3 class="popover-title">{{answerPopOver.title}}</h3>
+   <div class="popover-content">
+      <div class="btn-group justified">
+         <a (click)="removeAnswerPopOver(answerPopOver)" class="btn btn-secondary">Cancel</a>
+         <a (click)="removeAnswer(answerPopOver.poll, answerPopOver.answer); removeAnswerPopOver(answerPopOver)" class="btn btn-primary">Ok</a>
+      </div>
+   </div>
+</div>
+<div  *ngFor="let pollPopOver of pollPopOvers"
+      [style.left]="pollPopOver.position.x + 'px'"
+      [style.top]="pollPopOver.position.y + 'px'"
+      class="popover popover-{{pollPopOver.direction}}"
+      style="position: absolute"
+      (clickOutside)="removePollPopOver(pollPopOver)">
+   <div class="popover-arrow"></div>
+   <h3 class="popover-title">{{pollPopOver.title}}</h3>
+   <div class="popover-content">
+      <div class="btn-group justified">
+         <a (click)="removePollPopOver(pollPopOver)" class="btn btn-secondary">Cancel</a>
+         <a (click)="removePoll(pollPopOver.poll); removePollPopOver(pollPopOver)" class="btn btn-primary">Ok</a>
       </div>
    </div>
 </div>

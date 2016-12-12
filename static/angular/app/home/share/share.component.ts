@@ -7,17 +7,12 @@ import { Component } from '@angular/core';
    styleUrls: [ 'share.css' ]
 })
 export class ShareComponent  {
-   private shareIconTop: number;
-   private facebookClicked: boolean;
-   private twitterClicked: boolean;
-   private linkClicked: boolean;
+   private shareIconTop: number = 60;
+   private facebookClicked: boolean = false;
+   private twitterClicked: boolean = false;
+   private linkClicked: boolean = false;
 
    constructor() {
-      this.shareIconTop = 60;
-      this.facebookClicked = false;
-      this.twitterClicked = false;
-      this.linkClicked = false;
-
       this.clickRandomButton();
    }
 

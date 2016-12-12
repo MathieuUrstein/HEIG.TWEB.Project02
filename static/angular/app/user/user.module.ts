@@ -7,6 +7,7 @@ import { ConnectOrRegisterComponent } from './connect-or-register/connectOrRegis
 import { ManageComponent } from './manage/manage.component';
 import { EditComponent } from './edit/edit.component';
 import { AdminTabsComponent } from './admin-tabs/adminTabs.component';
+import { ClickOutsideDirective } from './edit/clickOutside.directive';
 
 @NgModule({
    imports: [
@@ -18,7 +19,8 @@ import { AdminTabsComponent } from './admin-tabs/adminTabs.component';
       ConnectOrRegisterComponent,
       ManageComponent,
       EditComponent,
-      AdminTabsComponent
+      AdminTabsComponent,
+      ClickOutsideDirective
    ],
    exports: [
       UserComponent,

@@ -110,3 +110,14 @@
 .disabled {
    cursor: not-allowed;
 }
+.justified {
+   display: block;
+   height: 38px;
+
+   a {
+      width: 50%;
+      display: inline-block;
+      margin: 0;
+      border: 0;
+   }
+}

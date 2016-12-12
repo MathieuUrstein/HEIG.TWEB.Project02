@@ -69,7 +69,7 @@ $brand-inverse:             $gray-dark !default;
 
 $enable-flex:               false !default;
 $enable-rounded:            true !default;
-$enable-shadows:            false !default;
+$enable-shadows:            true !default;
 $enable-gradients:          false !default;
 $enable-transitions:        false !default;
 $enable-hover-media-query:  false !default;
@@ -619,10 +619,10 @@ $tooltip-arrow-color:         $tooltip-bg !default;
 
 $popover-inner-padding:               1px !default;
 $popover-bg:                          #fff !default;
-$popover-max-width:                   276px !default;
+$popover-max-width:                   500px !default;
 $popover-border-width:                $border-width !default;
 $popover-border-color:                rgba(0,0,0,.2) !default;
-$popover-box-shadow:                  0 5px 10px rgba(0,0,0,.2) !default;
+$popover-box-shadow:                  0 5px 20px $brand-primary-darken !default;
 
 $popover-title-bg:                    darken($popover-bg, 3%) !default;
 $popover-title-padding-x:             14px !default;

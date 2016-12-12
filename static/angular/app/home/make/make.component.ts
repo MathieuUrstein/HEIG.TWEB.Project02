@@ -8,13 +8,11 @@ import { Component } from '@angular/core';
 })
 export class MakeComponent  {
    private isVisible: Array<Boolean> = new Array(4);
-   private addClicked: Boolean;
-   private removeClicked: Boolean;
+   private addClicked: Boolean = false;
+   private removeClicked: Boolean = false;
 
    constructor() {
       this.isVisible[0] = true;
-      this.addClicked = false;
-      this.removeClicked = false;
       for (let i = 1; i < this.isVisible.length; i++) {
          this.isVisible[i] = false;
       }

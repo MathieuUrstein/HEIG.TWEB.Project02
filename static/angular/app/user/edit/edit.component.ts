@@ -9,14 +9,15 @@ import { Observable } from 'rxjs';
    styleUrls: ['edit.css']
 })
 export class EditComponent  {
-   private choiceMode: boolean;
-   private name: string;
-   private polls: Array<any>;
+   private choiceMode: boolean = false;
+   private name: string = '';
+   private polls: Array<Poll> = new Array(0);
+   private answerPopOvers: Array<AnswerPopOver> = new Array(0);
+   private pollPopOvers: Array<PollPopOver> = new Array(0);
+   private popOverPositionMargin: number = 20;
+   private popOverHeight: number = 75;
 
    constructor(private route: ActivatedRoute) {
-      this.choiceMode = false;
-      this.name = '';
-      this.polls = new Array(0);
 
       let paramsSource: Observable<Params> = route.params;
 
@@ -26,6 +27,23 @@ export class EditComponent  {
          });
       }
    }
+
+   cumulativeOffset(element: Element) {
+      let top = 0, left = 0;
+      let htmlElement = <HTMLElement>element;
+      do {
+         top += htmlElement.offsetTop  || 0;
+         left += htmlElement.offsetLeft || 0;
+
+         htmlElement = <HTMLElement>htmlElement.offsetParent;
+
+      } while (htmlElement);
+
+      return {
+         top: top,
+         left: left
+      };
+   };
 
    addPoll(type: string) {
       this.polls.push({
@@ -39,13 +57,38 @@ export class EditComponent  {
       this.choiceMode = false;
    }
 
-   removePoll(poll: any) {
+   removePoll(poll: Poll) {
       this.polls.splice(this.polls.indexOf(poll), 1);
    }
 
-   removeAnswer(poll: any, answer: any) {
+   askRemovePoll(poll: Poll, event: MouseEvent) {
+      let elemPosition: any = this.cumulativeOffset(event.srcElement);
+      this.pollPopOvers.push({
+         title: 'Are you shure to remove this poll ?',
+         direction: 'right',
+         poll: poll,
+         position: {
+            x: elemPosition.left + this.popOverPositionMargin,
+            y: elemPosition.top - (this.popOverHeight / 2)
+         }
+      });
+   }
 
-      /*
+   askRemoveAnswer(poll: Poll, answer: Answer, event: MouseEvent) {
+      let elemPosition: any = this.cumulativeOffset(event.srcElement);
+      this.answerPopOvers.push({
+         title: 'Are you shure to remove this answer ?',
+         direction: 'right',
+         poll: poll,
+         answer: answer,
+         position: {
+            x: elemPosition.left + this.popOverPositionMargin,
+            y: elemPosition.top - (this.popOverHeight / 2)
+         }
+      });
+   }
+
+   removeAnswer(poll: Poll, answer: Answer) {
       poll.answers.splice(poll.answers.indexOf(answer), 1);
 
       if (poll.type === 'single') {
@@ -58,21 +101,61 @@ export class EditComponent  {
          if (noTrue) {
             poll.answers[0].correct = true;
          }
-      }*/
+      }
    }
 
-   singleSelect(poll: any, answer: any) {
+   removePollPopOver(pollPopOver: PollPopOver) {
+      this.pollPopOvers.splice(this.pollPopOvers.indexOf(pollPopOver), 1);
+   }
+
+   removeAnswerPopOver(answerPopOver: AnswerPopOver) {
+      this.answerPopOvers.splice(this.answerPopOvers.indexOf(answerPopOver), 1);
+   }
+
+   singleSelect(poll: Poll, answer: Answer) {
       for (let i = 0; i < poll.answers.length; i++) {
          poll.answers[i].correct = false;
       }
       answer.correct = true;
    }
 
-   multiSelect(answer: any) {
+   multiSelect(answer: Answer) {
       answer.correct = !answer.correct;
    }
 
-   yesNoSelect(answer: any, choice: boolean) {
+   yesNoSelect(answer: Answer, choice: boolean) {
       answer.correct = choice;
    }
+}
+
+interface Poll {
+   type: string;
+   question: string;
+   answers: Array<Answer>;
+}
+
+interface Answer {
+   answer: string;
+   correct: boolean;
+}
+
+interface PollPopOver {
+   title: string;
+   direction: string;
+   poll: Poll;
+   position: {
+      x: number,
+      y: number
+   };
+}
+
+interface AnswerPopOver {
+   title: string;
+   direction: string;
+   poll: Poll;
+   answer: Answer;
+   position: {
+      x: number,
+      y: number
+   };
 }

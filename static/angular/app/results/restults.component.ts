@@ -7,12 +7,10 @@ import { Component } from '@angular/core';
    styleUrls: ['results.css']
 })
 export class ResultsComponent  {
-   private title: string;
-   private polls: Array<any>;
+   private title: string = 'A title';
+   private polls: Array<any> = new Array(0);
 
    constructor() {
-      this.title = 'A title';
-      this.polls = new Array(0);
 
       this.polls.push({
          type: 'single',
