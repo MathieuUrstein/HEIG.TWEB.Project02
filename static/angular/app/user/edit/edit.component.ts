@@ -25,7 +25,7 @@ export class EditComponent  {
    };
    private pollPopOver: PollPopOver = {
       visible: false,
-      title: 'Are you shure to remove this poll ?',
+      title: 'Are you shure to remove this question ?',
       direction: 'right',
       poll: null,
       position: {
