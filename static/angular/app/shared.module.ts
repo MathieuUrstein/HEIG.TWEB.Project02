@@ -8,6 +8,8 @@ import { HeaderMenuComponent } from './header-menu/headerMenu.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { appRoutes } from './routes';
+import {AuthGuard} from "./user/auth.guard";
+import {ConnectionService} from "./user/connection.service";
 
 @NgModule({
    imports: [
@@ -19,9 +21,12 @@ import { appRoutes } from './routes';
    exports: [
       CommonModule,
       RouterModule,
-
       HeaderMenuComponent,
       FooterComponent
+   ],
+   providers: [
+      AuthGuard,
+      ConnectionService
    ]
 })
 export class SharedModule { }

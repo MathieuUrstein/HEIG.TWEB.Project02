@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
-
-import { UserComponent } from './user.component';
 import { ConnectOrRegisterComponent } from './connect-or-register/connectOrRegister.component';
 import { ManageComponent } from './manage/manage.component';
 import { EditComponent } from './edit/edit.component';
@@ -15,7 +13,6 @@ import { ClickOutsideDirective } from './edit/clickOutside.directive';
       FormsModule,
    ],
    declarations: [
-      UserComponent,
       ConnectOrRegisterComponent,
       ManageComponent,
       EditComponent,
@@ -23,7 +20,6 @@ import { ClickOutsideDirective } from './edit/clickOutside.directive';
       ClickOutsideDirective
    ],
    exports: [
-      UserComponent,
       EditComponent
    ]
 })

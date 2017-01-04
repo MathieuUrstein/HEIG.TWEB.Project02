@@ -9,8 +9,6 @@ import { AppComponent } from './app.component';
 import { ParticipateComponent } from './participate/participate.component';
 import { ResultsComponent } from './results/restults.component';
 
-import { ConnectionService } from './user/connection.service';
-
 
 @NgModule({
    imports: [
@@ -25,7 +23,6 @@ import { ConnectionService } from './user/connection.service';
       ResultsComponent,
       ParticipateComponent
    ],
-   bootstrap:    [ AppComponent ],
-   providers: [ ConnectionService ]
+   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

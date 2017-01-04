@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConnectionService } from '../connection.service';
+import {Router} from '@angular/router';
 
 @Component({
    moduleId: module.id,
@@ -8,9 +9,13 @@ import { ConnectionService } from '../connection.service';
    styleUrls: ['connectOrRegister.css']
 })
 export class ConnectOrRegisterComponent  {
-   constructor(private connectionService: ConnectionService) {}
+   constructor(
+      private connectionService: ConnectionService,
+      private router: Router
+   ) {}
 
    tryConnect() {
       this.connectionService.tryConnect();
+      this.router.navigate(['manage']);
    }
 }

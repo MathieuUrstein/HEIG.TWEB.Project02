@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ConnectionService } from '../connection.service';
 
 @Component({
    moduleId: module.id,
@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
    styleUrls: ['edit.css']
 })
 export class EditComponent  {
+   private routeParams: Object;
    private choiceMode: boolean = false;
    private name: string = '';
    private polls: Array<Poll> = new Array(0);
    private answerPopOver: AnswerPopOver = {
       visible: false,
-      title: 'Are you shure to remove this answer ?',
+      title: 'Are you sure to remove this answer ?',
       direction: 'right',
       poll: null,
       answer: null,
@@ -25,7 +26,7 @@ export class EditComponent  {
    };
    private pollPopOver: PollPopOver = {
       visible: false,
-      title: 'Are you shure to remove this question ?',
+      title: 'Are you sure to remove this question ?',
       direction: 'right',
       poll: null,
       position: {
@@ -36,15 +37,13 @@ export class EditComponent  {
    private popOverPositionMargin: number = 20;
    private popOverHeight: number = 75;
 
-   constructor(private route: ActivatedRoute) {
-
-      let paramsSource: Observable<Params> = route.params;
-
-      if (paramsSource) {
-         paramsSource.subscribe(params => {
-            this.name = params['id'];
-         });
-      }
+   constructor(
+      private route: ActivatedRoute,
+      private connectionService: ConnectionService
+   ) {
+      route.params.subscribe(params => {
+         this.routeParams = params;
+      });
    }
 
    cumulativeOffset(element: Element) {
@@ -114,7 +113,6 @@ export class EditComponent  {
    }
 
    removeAnswer(poll: Poll, answer: Answer) {
-      console.log(poll, answer);
       poll.answers.splice(poll.answers.indexOf(answer), 1);
 
       if (poll.type === 'single') {
@@ -152,9 +150,25 @@ export class EditComponent  {
    yesNoSelect(answer: Answer, choice: boolean) {
       answer.correct = choice;
    }
+
+   ngOnInit() {
+      if (Object.keys(this.routeParams).length > 0) {
+         this.name = this.routeParams['id'];
+      } else {
+         this.name = this.connectionService.creationPollName;
+         this.polls = this.connectionService.creationPolls;
+      }
+   }
+
+   ngOnDestroy() {
+      if (Object.keys(this.routeParams).length === 0) {
+         this.connectionService.creationPolls = this.polls;
+         this.connectionService.creationPollName = this.name;
+      }
+   }
 }
 
-interface Poll {
+export interface Poll {
    type: string;
    question: string;
    answers: Array<Answer>;
@@ -165,7 +179,7 @@ interface Answer {
    correct: boolean;
 }
 
-interface PollPopOver {
+export interface PollPopOver {
    visible: boolean;
    title: string;
    direction: string;
@@ -176,7 +190,7 @@ interface PollPopOver {
    };
 }
 
-interface AnswerPopOver {
+export interface AnswerPopOver {
    visible: boolean;
    title: string;
    direction: string;
