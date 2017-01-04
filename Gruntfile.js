@@ -106,7 +106,6 @@ module.exports = function (grunt) {
                lib: [ 'es2015', 'dom' ],
                noImplicitAny: true,
                suppressImplicitAnyIndexErrors: true,
-
                fast: 'always'
             }
          }

@@ -4,7 +4,8 @@
    "private": true,
    "main": "app.js",
    "scripts": {
-      "start": "node app.js"
+      "start": "node app.js",
+      "grunt": "grunt"
    },
    "dependencies": {
       "@angular/common": "~2.2.0",

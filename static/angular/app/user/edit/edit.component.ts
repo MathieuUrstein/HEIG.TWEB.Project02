@@ -65,14 +65,28 @@ export class EditComponent  {
    };
 
    addPoll(type: string) {
-      this.polls.push({
-         type: type,
-         question: '',
-         answers: [{
-            answer: '',
-            correct: true
-         }]
-      });
+      if (type === 'yesOrNo') {
+         this.polls.push({
+            type: type,
+            question: '',
+            answers: [{
+               answer: '',
+               correct: true
+            }]
+         });
+      } else {
+         this.polls.push({
+            type: type,
+            question: '',
+            answers: [{
+               answer: '',
+               correct: true
+            }, {
+               answer: '',
+               correct: false
+            }]
+         });
+      }
       this.choiceMode = false;
    }
 
@@ -100,6 +114,7 @@ export class EditComponent  {
    }
 
    removeAnswer(poll: Poll, answer: Answer) {
+      console.log(poll, answer);
       poll.answers.splice(poll.answers.indexOf(answer), 1);
 
       if (poll.type === 'single') {
@@ -109,7 +124,7 @@ export class EditComponent  {
                noTrue = false;
             }
          }
-         if (noTrue) {
+         if (noTrue && poll.answers.length) {
             poll.answers[0].correct = true;
          }
       }
