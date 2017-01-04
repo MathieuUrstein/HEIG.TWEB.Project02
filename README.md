@@ -65,6 +65,7 @@ Before executing any command, be sure to have the following technologies install
 - NPM (> v4.0.3) (Comes with NodeJs)
 - Docker (> v1.12.3)
 - Git (> v2.11.0 for Windows and > v2.10.1 for Mac)
+- Grunt (> 1.01) (optional)
 
 ### Install
 
@@ -91,8 +92,13 @@ After that, you need to download and build the npm dependencies with this comman
 
 #### Grunt
 Finally, you just need to execute the following command to launch the web application:
+If installed globaly :
 
     $ grunt
+    
+Else :
+
+    $ npm run grunt
     
 ### Access
 The application is now available on this address:  
