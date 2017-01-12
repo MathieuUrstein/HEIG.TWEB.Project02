@@ -45,6 +45,12 @@ module.exports = function (grunt) {
             src: 'rxjs/**',
             dest: 'static/public/angular/dependencies'
          },
+         socketIO: {
+            expand: true,
+            cwd: 'node_modules/',
+            src: 'socket.io-client/**',
+            dest: 'static/public/angular/dependencies'
+         },
          angularBundles: {
             expand: true,
             cwd: 'node_modules/',

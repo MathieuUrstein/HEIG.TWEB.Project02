@@ -14,12 +14,26 @@ db.on('error', function () {
 
 // Instantiate express
 var app = express();
+var server = require('http').Server(app);
+// Instantiate socket.io
+var io = require('socket.io')(server);
+
+// Start app
+server.listen(config.port, function () {
+   console.log('Express server listening on port ' + config.port);
+});
 
 // Bootstrap express with needed dependencies
 module.exports = require('./config/express')(app, config);
 
-// Start app
-app.listen(config.port, function () {
-   console.log('Express server listening on port ' + config.port);
-});
+io.on('connection', function (socket) {
+   console.log('user connected');
 
+   socket.on('disconnect', function(){
+      console.log('user disconnected');
+   });
+
+   socket.on('client-emission', function(message) {
+         io.emit('server-emission', {type:'new-message', text: message});
+   });
+});
