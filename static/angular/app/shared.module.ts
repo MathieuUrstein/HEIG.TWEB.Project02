@@ -10,6 +10,8 @@ import { FooterComponent } from './footer/footer.component';
 import { appRoutes } from './routes';
 import {AuthGuard} from "./user/auth.guard";
 import {ConnectionService} from "./user/connection.service";
+import {ErrorsService} from "./header-menu/errors/errors.service";
+import {SuccessesService} from "./header-menu/successes/successes.service";
 
 @NgModule({
    imports: [
@@ -26,7 +28,9 @@ import {ConnectionService} from "./user/connection.service";
    ],
    providers: [
       AuthGuard,
-      ConnectionService
+      ConnectionService,
+      ErrorsService,
+      SuccessesService
    ]
 })
 export class SharedModule { }

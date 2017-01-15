@@ -1,0 +1,11 @@
+<div class="successes-container"  *ngIf="successes.length > 0">
+   <div class="container successes-container-inner">
+      <div class="row panel">
+         <div class="col-xs-12">
+            <ul>
+               <li *ngFor="let success of successes">{{ success }}</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div>

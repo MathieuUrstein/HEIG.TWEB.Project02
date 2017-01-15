@@ -21,7 +21,7 @@
                            <textarea [(ngModel)]="poll.question" class="form-control" rows="3"></textarea>
                         </div>
                      </div>
-                     <div *ngIf="poll.type == 'single'" class="col-xs-12 answers">
+                     <div *ngIf="poll.pollType == 'single'" class="col-xs-12 answers">
                         <div class="add-answers">
                            <a (click)="poll.answers.push({answer: '', correct: false})" class="add btn btn-sm btn-secondary"><i class="fa fa-plus"></i></a>
                            <h6>Answers</h6>
@@ -41,7 +41,7 @@
                            </div>
                         </div>
                      </div>
-                     <div *ngIf="poll.type == 'multiple'" class="col-xs-12 answers">
+                     <div *ngIf="poll.pollType == 'multiple'" class="col-xs-12 answers">
                         <div class="add-answers">
                            <a (click)="poll.answers.push({answer: '', correct: false})" class="add btn btn-sm btn-secondary"><i class="fa fa-plus"></i></a>
                            <h6>Answers</h6>
@@ -61,7 +61,7 @@
                            </div>
                         </div>
                      </div>
-                     <div *ngIf="poll.type == 'yesOrNo'" class="col-xs-12 answers">
+                     <div *ngIf="poll.pollType == 'yesOrNo'" class="col-xs-12 answers">
                         <div *ngFor="let answer of poll.answers" class="answer yesOrNo">
                            <div class="row">
                               <div class="col-xs-6">
@@ -88,7 +88,9 @@
                </div>
             </div>
             <hr class="big-sep">
-               <a class="btn btn-block btn-lg btn-primary">Create the poll</a>
+            <a *ngIf="id == null" class="btn btn-block btn-lg btn-primary" (click)="createOrEdit()">Create the poll</a>
+            <a *ngIf="id != null" class="btn btn-block btn-lg btn-primary" (click)="createOrEdit()">Edit the poll</a>
+            <p *ngIf="id != null" class="text-xs-center warning">Editing a post will resets it</p>
          </div>
       </div>
    </div>

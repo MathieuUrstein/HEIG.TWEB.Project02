@@ -1,0 +1,11 @@
+<div class="errors-container" *ngIf="errors.length > 0">
+   <div class="container errors-container-inner">
+      <div class="row panel">
+         <div class="col-xs-12">
+            <ul>
+               <li *ngFor="let error of errors">{{ error }}</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+</div>

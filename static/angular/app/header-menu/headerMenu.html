@@ -8,10 +8,16 @@
                <span class="hidden-sm-down"> About</span>
             </a>
          </li>
+         <li *ngIf="isConnected" class="nav-item">
+            <a href="#" class="nav-link" (click)="logout()">
+               <i class="fa fa-sign-out"></i>
+               <span class="hidden-sm-down"> Disconnect</span>
+            </a>
+         </li>
       </ul>
       <ul class="nav navbar-nav pull-xs-right">
          <li *ngIf="!isConnected" class="nav-item">
-            <a routerLink="/manage" class="nav-link">
+            <a routerLink="/connect" class="nav-link">
                <span class="hidden-sm-down">Connect </span>
                <i class="fa fa-plug"></i>
             </a>
@@ -31,3 +37,7 @@
       </ul>
    </div>
 </nav>
+<div class="special-info">
+   <errors></errors>
+   <successes></successes>
+</div>

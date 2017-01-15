@@ -1,0 +1,19 @@
+@import "../../../../styles/variables";
+
+.successes-container {
+   margin-top: 20px;
+}
+.panel {
+   margin: 0;
+   padding: 20px;
+   border: 1px solid $brand-primary-lighten;
+   border-radius: $border-radius;
+   background-color: white;
+   box-shadow: 0 2px 30px $brand-primary;
+}
+ul {
+   margin: 0;
+}
+li {
+   color: $brand-primary-darken;
+}

@@ -1,22 +1,42 @@
 var express = require('express');
 var config = require('./config/config');
 var glob = require('glob');
-var mongoose = require('mongoose');
 
-// Connect to database
-/*
+// Instantiate mongoDB
+var mongoose = require('mongoose');
 mongoose.connect(config.db);
 var db = mongoose.connection;
 db.on('error', function () {
    throw new Error('unable to connect to database at ' + config.db);
 });
-*/
 
 // Instantiate express
 var app = express();
 var server = require('http').Server(app);
+
+// Instantiate sessions
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var sessionMiddleware = session({
+   resave: true,
+   saveUninitialized: true,
+   store: new MongoStore({mongooseConnection: db}),
+   secret: config.sessionSecret,
+   cookie: {
+      httpOnly: false
+   }
+});
+app.use(sessionMiddleware);
+
+// Instantiate session with socket.io
+ioSession = require("express-socket.io-session");
+
 // Instantiate socket.io
 var io = require('socket.io')(server);
+io.use(ioSession(sessionMiddleware, {
+   autoSave: true
+}));
+require('./app/messages')(io, mongoose);
 
 // Start app
 server.listen(config.port, function () {
@@ -25,15 +45,3 @@ server.listen(config.port, function () {
 
 // Bootstrap express with needed dependencies
 module.exports = require('./config/express')(app, config);
-
-io.on('connection', function (socket) {
-   console.log('user connected');
-
-   socket.on('disconnect', function(){
-      console.log('user disconnected');
-   });
-
-   socket.on('client-emission', function(message) {
-         io.emit('server-emission', {type:'new-message', text: message});
-   });
-});

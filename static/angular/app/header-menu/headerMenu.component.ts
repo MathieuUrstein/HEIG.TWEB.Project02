@@ -8,13 +8,16 @@ import { ConnectionService } from '../user/connection.service';
    styleUrls: ['headerMenu.css']
 })
 export class HeaderMenuComponent  {
-   private isConnected: boolean;
+   private isConnected: boolean = false;
 
    constructor(private connectionService: ConnectionService) {
-      this.isConnected = connectionService.getConnectionState();
       connectionService.isConnectedSource.subscribe(
          newState => {
             this.isConnected = newState;
          });
+   }
+
+   logout() {
+      this.connectionService.logout();
    }
 }

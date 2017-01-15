@@ -12,7 +12,7 @@ export const appRoutes: Routes = [
    { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
    { path: 'new', component: EditComponent, canActivate: [AuthGuard] },
    { path: 'edit/:id', component: EditComponent, canActivate: [AuthGuard] },
-   { path: 'results/:id', component: ResultsComponent, canActivate: [AuthGuard] },
+   { path: 'r/:id', component: ResultsComponent, canActivate: [AuthGuard] },
    { path: 'p/:id', component: ParticipateComponent },
    { path: 'connect', component: ConnectOrRegisterComponent },
    { path: '', component: HomeComponent },

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConnectionService } from '../connection.service';
-import {Router} from '@angular/router';
+import {ErrorsService} from '../../header-menu/errors/errors.service';
 
 @Component({
    moduleId: module.id,
@@ -9,13 +9,39 @@ import {Router} from '@angular/router';
    styleUrls: ['connectOrRegister.css']
 })
 export class ConnectOrRegisterComponent  {
+   fullName: string = '';
+   email: string = '';
+   password: string = '';
+   passwordRepeat: string = '';
+   stayConnected: boolean = true;
+
    constructor(
       private connectionService: ConnectionService,
-      private router: Router
+      private errorsService: ErrorsService
    ) {}
 
    tryConnect() {
-      this.connectionService.tryConnect();
-      this.router.navigate(['manage']);
+      this.connectionService.tryConnect({
+         email: this.email,
+         password: this.password,
+         stayConnected: this.stayConnected
+      });
+   }
+
+   tryRegister() {
+      if (this.password !== this.passwordRepeat) {
+         this.errorsService.addError('Your passwords don\'t match');
+      } else {
+         this.connectionService.tryRegister({
+            fullName: this.fullName,
+            email: this.email,
+            password: this.password,
+            stayConnected: this.stayConnected
+         });
+      }
+   }
+
+   changeStayConnected() {
+      this.stayConnected = !this.stayConnected;
    }
 }

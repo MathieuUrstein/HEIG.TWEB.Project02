@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ConnectionService } from '../connection.service';
+import {ErrorsService} from "../../header-menu/errors/errors.service";
+import {SuccessesService} from "../../header-menu/successes/successes.service";
 
 @Component({
    moduleId: module.id,
@@ -10,9 +12,10 @@ import { ConnectionService } from '../connection.service';
 })
 export class EditComponent  {
    private routeParams: Object;
+   private id: string = null;
    private choiceMode: boolean = false;
    private name: string = '';
-   private polls: Array<Poll> = new Array(0);
+   private polls: Array<Poll> = [];
    private answerPopOver: AnswerPopOver = {
       visible: false,
       title: 'Are you sure to remove this answer ?',
@@ -39,11 +42,71 @@ export class EditComponent  {
 
    constructor(
       private route: ActivatedRoute,
-      private connectionService: ConnectionService
+      private connectionService: ConnectionService,
+      private errorsService: ErrorsService,
+      private successesService: SuccessesService,
+      private router: Router
    ) {
       route.params.subscribe(params => {
          this.routeParams = params;
       });
+   }
+
+   ngOnInit() {
+      this.connectionService.socket.on('polls-add-accepted', () => {
+         console.log('polls-add-accepted');
+         this.successesService.addSuccesses(['Your polls was successfully saved']);
+         this.router.navigate(['/manage']);
+      });
+
+      this.connectionService.socket.on('polls-add-refused', (errors: Array<string>) => {
+         console.log('polls-add-refused');
+         this.errorsService.addErrors(errors);
+      });
+
+      this.connectionService.socket.on('polls-edit-accepted', () => {
+         console.log('polls-edit-accepted');
+         this.successesService.addSuccesses(['Your polls was successfully updated']);
+         this.router.navigate(['/manage']);
+      });
+
+      this.connectionService.socket.on('polls-edit-refused', (errors: Array<string>) => {
+         console.log('polls-edit-refused');
+         this.errorsService.addErrors(errors);
+      });
+
+      this.connectionService.socket.on('polls-get-accepted', (polls: Polls) => {
+         console.log('polls-get-accepted');
+         this.name = polls.title;
+         this.polls = polls.polls;
+      });
+
+      this.connectionService.socket.on('polls-get-refused', (errors: Array<string>) => {
+         console.log('polls-get-refused');
+         this.errorsService.addErrors(errors);
+      });
+
+      if (Object.keys(this.routeParams).length > 0) {
+         this.id = this.routeParams['id'];
+         this.connectionService.socket.emit('polls-get', this.id);
+      } else {
+         this.name = this.connectionService.creationPollName;
+         this.polls = this.connectionService.creationPolls;
+      }
+   }
+
+   ngOnDestroy() {
+      this.connectionService.socket.off('polls-add-accepted');
+      this.connectionService.socket.off('polls-add-refused');
+      this.connectionService.socket.off('polls-edit-accepted');
+      this.connectionService.socket.off('polls-edit-refused');
+      this.connectionService.socket.off('polls-get-accepted');
+      this.connectionService.socket.off('polls-get-refused');
+
+      if (Object.keys(this.routeParams).length === 0) {
+         this.connectionService.creationPolls = this.polls;
+         this.connectionService.creationPollName = this.name;
+      }
    }
 
    cumulativeOffset(element: Element) {
@@ -63,19 +126,19 @@ export class EditComponent  {
       };
    };
 
-   addPoll(type: string) {
-      if (type === 'yesOrNo') {
+   addPoll(pollType: string) {
+      if (pollType === 'yesOrNo') {
          this.polls.push({
-            type: type,
+            pollType: pollType,
             question: '',
             answers: [{
                answer: '',
                correct: true
             }]
          });
-      } else {
+      } else { // two question for better user understanding
          this.polls.push({
-            type: type,
+            pollType: pollType,
             question: '',
             answers: [{
                answer: '',
@@ -115,7 +178,7 @@ export class EditComponent  {
    removeAnswer(poll: Poll, answer: Answer) {
       poll.answers.splice(poll.answers.indexOf(answer), 1);
 
-      if (poll.type === 'single') {
+      if (poll.pollType === 'single') {
          let noTrue = true;
          for (let i = 0; i < poll.answers.length; i++) {
             if (poll.answers[i].correct) {
@@ -151,25 +214,24 @@ export class EditComponent  {
       answer.correct = choice;
    }
 
-   ngOnInit() {
-      if (Object.keys(this.routeParams).length > 0) {
-         this.name = this.routeParams['id'];
-      } else {
-         this.name = this.connectionService.creationPollName;
-         this.polls = this.connectionService.creationPolls;
-      }
+   createOrEdit() {
+      let polls: Polls = new Polls(this.id, this.name, this.polls);
+      this.connectionService.socket.emit('polls-add-or-edit', polls);
    }
+}
 
-   ngOnDestroy() {
-      if (Object.keys(this.routeParams).length === 0) {
-         this.connectionService.creationPolls = this.polls;
-         this.connectionService.creationPollName = this.name;
-      }
+export class Polls {
+   _id: string;
+   title: string;
+   polls: Array<Poll>;
+
+   constructor(id: string, title: string, polls: Array<Poll>) {
+      this._id = id; this.title = title; this. polls = polls;
    }
 }
 
 export interface Poll {
-   type: string;
+   pollType: string;
    question: string;
    answers: Array<Answer>;
 }

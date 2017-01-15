@@ -4,12 +4,13 @@
       <admin-tabs></admin-tabs>
       <div class="row polls">
          <div class="col-md-12">
+            <p *ngIf="polls.length === 0"><button routerLink="/new" class="btn btn-block btn-secondary">Create your first polls</button></p>
             <ul class="list-unstyled">
                <li *ngFor="let poll of polls" class="row">
                   <div class="col-md-8 manage">
                      <a routerLink="/edit/{{poll.id}}" class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
-                     <a routerLink="/results/{{poll.id}}" [class.hovered]="poll.titleHovered" class="btn btn-secondary look"><i class="fa fa-th-list"></i></a>
-                     <h5 routerLink="/results/{{poll.id}}" (mouseover)="poll.titleHovered = true" (mouseout)="poll.titleHovered = false">{{poll.title}}</h5>
+                     <a routerLink="/r/{{poll.id}}" [class.hovered]="poll.titleHovered" class="btn btn-secondary look"><i class="fa fa-th-list"></i></a>
+                     <h5 routerLink="/r/{{poll.id}}" (mouseover)="poll.titleHovered = true" (mouseout)="poll.titleHovered = false">{{poll.title}}</h5>
                   </div>
                   <div class="col-md-4 share text-md-right">
                      <a [href]="sanitizeURI('https://www.facebook.com/sharer/sharer.php?u='+baseUrl+poll.id)" target="_blank" class="btn btn-secondary"><i class="fa fa-facebook"></i></a>
