@@ -35,13 +35,18 @@ module.exports = function(io, mongoose) {
 
    io.on('connection', function (socket) {
 
+      // create object to collect answered polls in session
+      if (typeof socket.handshake.session.answeredPolls == 'undefined') {
+         socket.handshake.session.answeredPolls = [];
+         socket.handshake.session.save();
+      }
+
       function sendPollsResults(id) {
-         console.error(id);
          Polls.findOne({_id: id}, function(err, pollsDB) {
             // copy the result without the special setters
             pollsDB = JSON.parse(JSON.stringify(pollsDB));
             if (err) {
-               socket.emit('polls-get-refused', ['An error occurred, sorry !']);
+               socket.emit('polls-get-refused', ['An error occurred, sorry']);
                return console.error(err);
             }
             if (pollsDB) {
@@ -59,13 +64,33 @@ module.exports = function(io, mongoose) {
                      delete answer.falseAnswers;
                   });
                });
-               console.error('polls-get-results-' + id + '-accepted');
                io.emit('polls-get-results-' + id + '-accepted', pollsDB);
             } else {
-               console.error('polls-get-results-' + id + '-refused');
                io.emit('polls-get-results-' + id + '-refused', ['Could not find desired polls']);
             }
          });
+      }
+
+      function pollsSimplified() {
+         if (typeof socket.handshake.session.user != 'undefined'){
+            // Search items of current user and simplify them
+            Polls.find({owner: socket.handshake.session.user}, function(err, pollsDB) {
+               if (err) {
+                  socket.emit('polls-simplified-refused', ['An error occurred, sorry']);
+                  return console.error(err);
+               }
+               var simplifiedPolls = [];
+               pollsDB.forEach(function(poll){
+                  simplifiedPolls.push({
+                     id: poll._id,
+                     title: poll.title,
+                     share: false,
+                     titleHovered: false
+                  });
+               });
+               socket.emit('polls-simplified-accepted', simplifiedPolls);
+            });
+         }
       }
 
       socket.on('disconnect', function(){ console.log('user disconnected') });
@@ -150,7 +175,7 @@ module.exports = function(io, mongoose) {
 
                   Polls.count({_id: validId}, function (err, count){
                      if (err) {
-                        socket.emit('polls-add-refused', ['An error occurred, sorry !']);
+                        socket.emit('polls-add-refused', ['An error occurred, sorry']);
                         return console.error(err);
                      }
                      if(count === 0) { // Random id does not exists
@@ -162,7 +187,7 @@ module.exports = function(io, mongoose) {
 
                         pollsDB.save(function (err, polls) {
                            if (err) {
-                              socket.emit('polls-add-refused', ['An error occurred, sorry !']);
+                              socket.emit('polls-add-refused', ['An error occurred, sorry']);
                               return console.error(err);
                            }
                            socket.emit('polls-add-accepted');
@@ -179,7 +204,7 @@ module.exports = function(io, mongoose) {
                }
                Polls.findOneAndUpdate({_id: polls._id}, polls, function(err, pollsDB) {
                   if (err) {
-                     socket.emit('polls-edit-refused', ['An error occurred, sorry !']);
+                     socket.emit('polls-edit-refused', ['An error occurred, sorry']);
                      return console.error(err);
                   }
                   if (pollsDB) {
@@ -193,25 +218,7 @@ module.exports = function(io, mongoose) {
       });
 
       socket.on('polls-simplified', function () {
-         if (typeof socket.handshake.session.user != 'undefined'){
-            // Search items of current user and simplify them
-            Polls.find({owner: socket.handshake.session.user}, function(err, pollsDB) {
-               if (err) {
-                  socket.emit('polls-simplified-refused', ['An error occurred, sorry !']);
-                  return console.error(err);
-               }
-               var simplifiedPolls = [];
-               pollsDB.forEach(function(poll){
-                  simplifiedPolls.push({
-                     id: poll._id,
-                     title: poll.title,
-                     share: false,
-                     titleHovered: false
-                  });
-               });
-               socket.emit('polls-simplified-accepted', simplifiedPolls);
-            });
-         }
+         pollsSimplified();
       });
 
       socket.on('polls-get', function (id) {
@@ -219,7 +226,7 @@ module.exports = function(io, mongoose) {
             // copy the result without the special setters
             pollsDB = JSON.parse(JSON.stringify(pollsDB));
             if (err) {
-               socket.emit('polls-get-refused', ['An error occurred, sorry !']);
+               socket.emit('polls-get-refused', ['An error occurred, sorry']);
                return console.error(err);
             }
             if (pollsDB) {
@@ -242,7 +249,7 @@ module.exports = function(io, mongoose) {
       socket.on('polls-get-participate', function (id) {
          Polls.findOne({_id: id}, function(err, pollsDB) {
             if (err) {
-               socket.emit('polls-get-participate-refused', ['An error occurred, sorry !']);
+               socket.emit('polls-get-participate-refused', ['An error occurred, sorry']);
                return console.error(err);
             }
             if (pollsDB) {
@@ -261,9 +268,13 @@ module.exports = function(io, mongoose) {
       });
 
       socket.on('polls-add-answers', function (answeredPolls) {
+         if (socket.handshake.session.answeredPolls.indexOf(answeredPolls.id) != (-1)) {
+            socket.emit('polls-add-answers-accepted', ['You have already answered to these polls']);
+            return;
+         }
          Polls.findOne({_id: answeredPolls.id}, function(err, pollsDB) {
             if (err) {
-               socket.emit('polls-add-answers-refused', ['An error occurred, sorry !']);
+               socket.emit('polls-add-answers-refused', ['An error occurred, sorry']);
                return console.error(err);
             }
             // Verify all answers have been answered
@@ -277,7 +288,7 @@ module.exports = function(io, mongoose) {
                });
                if (notAnswered) {
                   oneNotAnswered = true;
-                  socket.emit('polls-add-answers-refused', ['You must answer every questions !']);
+                  socket.emit('polls-add-answers-refused', ['You must answer every questions']);
                }
             });
             if(!oneNotAnswered) {
@@ -293,9 +304,12 @@ module.exports = function(io, mongoose) {
                }
                pollsDB.save(function (err) {
                   if(err) {
-                     socket.emit('polls-add-answers-refused', ['An error occurred, sorry !']);
+                     socket.emit('polls-add-answers-refused', ['An error occurred, sorry']);
                   } else {
                      sendPollsResults(pollsDB._id);
+                     // can not re-partisipate to polls
+                     socket.handshake.session.answeredPolls.push(pollsDB._id);
+                     socket.handshake.session.save();
                      socket.emit('polls-add-answers-accepted', ['Your answers have been successfully saved']);
                   }
                });
@@ -311,10 +325,11 @@ module.exports = function(io, mongoose) {
          if (typeof socket.handshake.session.user != 'undefined'){
             Polls.remove({_id: id, owner: socket.handshake.session.user}, function(err) {
                if (err) {
-                  socket.emit('polls-delete-refused', ['An error occurred, sorry !']);
+                  socket.emit('polls-delete-refused', ['An error occurred, sorry']);
                   return console.error(err);
                }
-               socket.emit('polls-delete-accepted', ['Polls successfully deleted !']);
+               socket.emit('polls-delete-accepted', ['Polls successfully deleted']);
+               pollsSimplified();
             });
          }
       });

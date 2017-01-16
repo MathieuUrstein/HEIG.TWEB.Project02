@@ -70,7 +70,6 @@ export class ParticipateComponent  {
          id: this.id,
          polls: this.polls
       };
-      console.log(answeredPolls);
       this.connectionService.socket.emit('polls-add-answers', answeredPolls);
    }
 

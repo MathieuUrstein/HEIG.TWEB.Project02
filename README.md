@@ -119,6 +119,8 @@ Configs can be found in
 
     /config/*
 
+## TODO's
+[https://github.com/MathieuUrstein/HEIG.TWEB.Project02/issues/1](https://github.com/MathieuUrstein/HEIG.TWEB.Project02/issues/1)
 
 ## Authors
 - Mathieu Urstein
