@@ -79,7 +79,7 @@ export class ConnectionService {
    }
 
    tryConnect(connectionData: any) {
-      this.socket.emit('connection', connectionData);
+      this.socket.emit('connection-try', connectionData);
    }
 
    tryRegister(registerData: any) {

@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import {Poll, Polls} from '../user/edit/edit.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ConnectionService} from '../user/connection.service';
+import {ErrorsService} from '../header-menu/errors/errors.service';
+import {SuccessesService} from '../header-menu/successes/successes.service';
 
 @Component({
    moduleId: module.id,
@@ -7,47 +12,66 @@ import { Component } from '@angular/core';
    styleUrls: ['participate.css']
 })
 export class ParticipateComponent  {
-   private title: string = 'A title';
-   private polls: Array<any> = new Array(0);
+   private routeParams: Object;
+   private id: string = null;
+   private title: string = '';
+   private polls: Array<Poll> = [];
 
-   constructor() {
+   constructor(
+      private route: ActivatedRoute,
+      private connectionService: ConnectionService,
+      private errorsService: ErrorsService,
+      private successesService: SuccessesService,
+      private router: Router
+   ) {
+      route.params.subscribe(params => {
+         this.routeParams = params;
+      });
+   }
 
-      this.polls.push({
-         type: 'single',
-         question: 'This is the single choice question',
-         answers: [{
-            answer: 'Answer 1',
-            correct: false
-         }, {
-            answer: 'Answer 2',
-            correct: true
-         }, {
-            answer: 'Answer 3',
-            correct: false
-         }]
+   ngOnInit() {
+      if (Object.keys(this.routeParams).length > 0) {
+         this.id = this.routeParams['id'];
+         this.connectionService.socket.emit('polls-get-participate', this.id);
+      }
+
+      this.connectionService.socket.on('polls-get-participate-accepted', (polls: Polls) => {
+         console.log('polls-get-participate-accepted');
+         this.title = polls.title;
+         this.polls = polls.polls;
       });
-      this.polls.push({
-         type: 'multiple',
-         question: 'This is multiple choices question',
-         answers: [{
-            answer: 'Answer 1',
-            correct: false
-         }, {
-            answer: 'Answer 2',
-            correct: true
-         }, {
-            answer: 'Answer 3',
-            correct: true
-         }]
+
+      this.connectionService.socket.on('polls-get-participate-refused', (errors: Array<string>) => {
+         console.log('polls-get-participate-refused');
+         this.errorsService.addErrors(errors);
       });
-      this.polls.push({
-         type: 'yesOrNo',
-         question: 'This is the yes or no question',
-         answers: [{
-            answer: 'Answer 1',
-            correct: true
-         }]
+
+      this.connectionService.socket.on('polls-add-answers-accepted', (successes: Array<string>) => {
+         console.log('polls-add-answers-accepted');
+         this.successesService.addSuccesses(successes);
+         this.router.navigate(['/r/' + this.id]);
       });
+
+      this.connectionService.socket.on('polls-add-answers-refused', (errors: Array<string>) => {
+         console.log('polls-add-answers-refused');
+         this.errorsService.addErrors(errors);
+      });
+   }
+
+   ngOnDestroy() {
+      this.connectionService.socket.off('polls-get-participate-accepted');
+      this.connectionService.socket.off('polls-get-participate-refused');
+      this.connectionService.socket.off('polls-add-answers-accepted');
+      this.connectionService.socket.off('polls-add-answers-refused');
+   }
+
+   sendAnswers() {
+      let answeredPolls: any = {
+         id: this.id,
+         polls: this.polls
+      };
+      console.log(answeredPolls);
+      this.connectionService.socket.emit('polls-add-answers', answeredPolls);
    }
 
    singleSelect(poll: any, answer: any) {
@@ -55,13 +79,16 @@ export class ParticipateComponent  {
          poll.answers[i].correct = false;
       }
       answer.correct = true;
+      poll.answered = true;
    }
 
-   multiSelect(answer: any) {
+   multiSelect(poll: any, answer: any) {
       answer.correct = !answer.correct;
+      poll.answered = true;
    }
 
-   yesNoSelect(answer: any, choice: boolean) {
+   yesNoSelect(poll: any, answer: any, choice: boolean) {
       answer.correct = choice;
+      poll.answered = true;
    }
 }

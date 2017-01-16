@@ -3,27 +3,70 @@ var randomstring = require("randomstring");
 // socket.handshake.session to get the session
 
 module.exports = function(io, mongoose) {
+   var Schema = mongoose.Schema;
 
-   var User = mongoose.model('User', {
+   var UserSchema = new Schema({
       fullName: String,
       email: String,
       password: String
    });
-   var Polls = mongoose.model('Polls', {
+   var AnswerSchema = new Schema({
+      answer: String,
+      correct: Boolean,
+      trueAnswers: { type: Number, default: 0 },
+      falseAnswers: { type: Number, default: 0 }
+   });
+   var PollSchema = new Schema({
+      pollType: String,
+      question: String,
+      answers: [AnswerSchema]
+   });
+   var PollsSchema = new Schema({
       _id: String,
       title: String,
-      owner: mongoose.Schema.Types.ObjectId,
-      polls: [{
-         pollType: String,
-         question: String,
-         answers: [{
-            answer: String,
-            correct: Boolean
-         }]
-      }]
+      owner: Schema.Types.ObjectId,
+      polls: [PollSchema]
    });
 
+   var User = mongoose.model('User', UserSchema);
+   var Answer = mongoose.model('Answer', AnswerSchema);
+   var Poll = mongoose.model('Poll', PollSchema);
+   var Polls = mongoose.model('Polls', PollsSchema);
+
    io.on('connection', function (socket) {
+
+      function sendPollsResults(id) {
+         console.error(id);
+         Polls.findOne({_id: id}, function(err, pollsDB) {
+            // copy the result without the special setters
+            pollsDB = JSON.parse(JSON.stringify(pollsDB));
+            if (err) {
+               socket.emit('polls-get-refused', ['An error occurred, sorry !']);
+               return console.error(err);
+            }
+            if (pollsDB) {
+               // remove owner id
+               delete pollsDB.owner;
+               // remove collected statistics and add percents
+               pollsDB.polls.forEach(function (poll) {
+                  poll.answers.forEach(function (answer) {
+                     if (answer.trueAnswers + answer.falseAnswers) {
+                        answer.percent = Math.floor((answer.trueAnswers / (answer.trueAnswers + answer.falseAnswers)) * 100);
+                     } else {
+                        answer.percent = 0;
+                     }
+                     delete answer.trueAnswers;
+                     delete answer.falseAnswers;
+                  });
+               });
+               console.error('polls-get-results-' + id + '-accepted');
+               io.emit('polls-get-results-' + id + '-accepted', pollsDB);
+            } else {
+               console.error('polls-get-results-' + id + '-refused');
+               io.emit('polls-get-results-' + id + '-refused', ['Could not find desired polls']);
+            }
+         });
+      }
 
       socket.on('disconnect', function(){ console.log('user disconnected') });
 
@@ -59,7 +102,7 @@ module.exports = function(io, mongoose) {
          });
       });
 
-      socket.on('connection', function (message) {
+      socket.on('connection-try', function (message) {
          User.findOne({email: message.email}, function(err, user) {
             if(err) return next(err);
             if (user) {
@@ -107,7 +150,7 @@ module.exports = function(io, mongoose) {
 
                   Polls.count({_id: validId}, function (err, count){
                      if (err) {
-                        socket.emit('polls-add-refused', ['An unknown error occurred, sorry !']);
+                        socket.emit('polls-add-refused', ['An error occurred, sorry !']);
                         return console.error(err);
                      }
                      if(count === 0) { // Random id does not exists
@@ -119,7 +162,7 @@ module.exports = function(io, mongoose) {
 
                         pollsDB.save(function (err, polls) {
                            if (err) {
-                              socket.emit('polls-add-refused', ['An unknown error occurred, sorry !']);
+                              socket.emit('polls-add-refused', ['An error occurred, sorry !']);
                               return console.error(err);
                            }
                            socket.emit('polls-add-accepted');
@@ -136,7 +179,7 @@ module.exports = function(io, mongoose) {
                }
                Polls.findOneAndUpdate({_id: polls._id}, polls, function(err, pollsDB) {
                   if (err) {
-                     socket.emit('polls-edit-refused', ['An unknown error occurred, sorry !']);
+                     socket.emit('polls-edit-refused', ['An error occurred, sorry !']);
                      return console.error(err);
                   }
                   if (pollsDB) {
@@ -151,10 +194,10 @@ module.exports = function(io, mongoose) {
 
       socket.on('polls-simplified', function () {
          if (typeof socket.handshake.session.user != 'undefined'){
-            // todo search items of current user and simplify them
+            // Search items of current user and simplify them
             Polls.find({owner: socket.handshake.session.user}, function(err, pollsDB) {
                if (err) {
-                  socket.emit('polls-simplified-refused', ['An unknown error occurred, sorry !']);
+                  socket.emit('polls-simplified-refused', ['An error occurred, sorry !']);
                   return console.error(err);
                }
                var simplifiedPolls = [];
@@ -172,20 +215,96 @@ module.exports = function(io, mongoose) {
       });
 
       socket.on('polls-get', function (id) {
-         if (typeof socket.handshake.session.user != 'undefined'){
-            Polls.findOne({owner: socket.handshake.session.user, _id: id}, function(err, pollsDB) {
-               if (err) {
-                  socket.emit('polls-get-refused', ['An unknown error occurred, sorry !']);
-                  return console.error(err);
-               }
-               if (pollsDB) {
-                  delete pollsDB.owner;
-                  socket.emit('polls-get-accepted', pollsDB);
-               } else {
-                  socket.emit('polls-get-refused', ['Could not find desired polls']);
+         Polls.findOne({_id: id}, function(err, pollsDB) {
+            // copy the result without the special setters
+            pollsDB = JSON.parse(JSON.stringify(pollsDB));
+            if (err) {
+               socket.emit('polls-get-refused', ['An error occurred, sorry !']);
+               return console.error(err);
+            }
+            if (pollsDB) {
+               // remove owner id
+               delete pollsDB.owner;
+               // remove collected statistics
+               pollsDB.polls.forEach(function (poll) {
+                  poll.answers.forEach(function (answer) {
+                     delete answer.trueAnswers;
+                     delete answer.falseAnswers;
+                  });
+               });
+               socket.emit('polls-get-accepted', pollsDB);
+            } else {
+               socket.emit('polls-get-refused', ['Could not find desired polls']);
+            }
+         });
+      });
+
+      socket.on('polls-get-participate', function (id) {
+         Polls.findOne({_id: id}, function(err, pollsDB) {
+            if (err) {
+               socket.emit('polls-get-participate-refused', ['An error occurred, sorry !']);
+               return console.error(err);
+            }
+            if (pollsDB) {
+               delete pollsDB.owner;
+               // remove answers
+               pollsDB.polls.forEach(function (poll) {
+                  poll.answers.forEach(function (answer) {
+                     answer.correct = null;
+                  })
+               });
+               socket.emit('polls-get-participate-accepted', pollsDB);
+            } else {
+               socket.emit('polls-get-participate-refused', ['Could not find desired polls']);
+            }
+         });
+      });
+
+      socket.on('polls-add-answers', function (answeredPolls) {
+         Polls.findOne({_id: answeredPolls.id}, function(err, pollsDB) {
+            if (err) {
+               socket.emit('polls-add-answers-refused', ['An error occurred, sorry !']);
+               return console.error(err);
+            }
+            // Verify all answers have been answered
+            var oneNotAnswered = false;
+            answeredPolls.polls.forEach(function(poll) {
+               var notAnswered = true;
+               poll.answers.forEach(function (answer) {
+                  if (answer.correct != null) {
+                     notAnswered = false;
+                  }
+               });
+               if (notAnswered) {
+                  oneNotAnswered = true;
+                  socket.emit('polls-add-answers-refused', ['You must answer every questions !']);
                }
             });
-         }
+            if(!oneNotAnswered) {
+               // Add all answers
+               for(var i=0; i < answeredPolls.polls.length; i++) {
+                  for(var j=0; j < answeredPolls.polls[i].answers.length; j++) {
+                     if (answeredPolls.polls[i].answers[j].correct) {
+                        pollsDB.polls[i].answers[j].trueAnswers = pollsDB.polls[i].answers[j].trueAnswers + 1;
+                     } else {
+                        pollsDB.polls[i].answers[j].falseAnswers = pollsDB.polls[i].answers[j].falseAnswers + 1;
+                     }
+                  }
+               }
+               pollsDB.save(function (err) {
+                  if(err) {
+                     socket.emit('polls-add-answers-refused', ['An error occurred, sorry !']);
+                  } else {
+                     sendPollsResults(pollsDB._id);
+                     socket.emit('polls-add-answers-accepted', ['Your answers have been successfully saved']);
+                  }
+               });
+            }
+         });
+      });
+
+      socket.on('polls-get-results', function (id) {
+         sendPollsResults(id);
       });
    });
 };

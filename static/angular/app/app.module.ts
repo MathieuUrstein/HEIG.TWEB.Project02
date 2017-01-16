@@ -7,7 +7,7 @@ import { SharedModule } from './shared.module';
 import { PageNotFoundComponent } from './pageNetFound.component';
 import { AppComponent } from './app.component';
 import { ParticipateComponent } from './participate/participate.component';
-import { ResultsComponent } from './results/restults.component';
+import { ResultsComponent } from './results/results.component';
 
 
 @NgModule({
