@@ -306,5 +306,17 @@ module.exports = function(io, mongoose) {
       socket.on('polls-get-results', function (id) {
          sendPollsResults(id);
       });
+
+      socket.on('polls-delete', function (id) {
+         if (typeof socket.handshake.session.user != 'undefined'){
+            Polls.remove({_id: id, owner: socket.handshake.session.user}, function(err) {
+               if (err) {
+                  socket.emit('polls-delete-refused', ['An error occurred, sorry !']);
+                  return console.error(err);
+               }
+               socket.emit('polls-delete-accepted', ['Polls successfully deleted !']);
+            });
+         }
+      });
    });
 };

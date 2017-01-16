@@ -1,6 +1,7 @@
 import {Component, ViewChildren, QueryList, ElementRef} from '@angular/core';
 import {ConnectionService} from '../connection.service';
 import {ErrorsService} from '../../header-menu/errors/errors.service';
+import {SuccessesService} from '../../header-menu/successes/successes.service';
 
 @Component({
    moduleId: module.id,
@@ -28,7 +29,8 @@ export class ManageComponent  {
 
    constructor(
       private connectionService: ConnectionService,
-      private errorsService: ErrorsService
+      private errorsService: ErrorsService,
+      private successesService: SuccessesService
    ) {
       this.baseUrl = window.location.origin + /p/;
    }
@@ -44,12 +46,24 @@ export class ManageComponent  {
          this.errorsService.addErrors(errors);
       });
 
+      this.connectionService.socket.on('polls-delete-accepted', (successes: Array<string>) => {
+         console.log('polls-delete-accepted');
+         this.successesService.addSuccesses(successes);
+      });
+
+      this.connectionService.socket.on('polls-delete-refused', (errors: Array<string>) => {
+         console.log('polls-delete-refused');
+         this.errorsService.addErrors(errors);
+      });
+
       this.connectionService.socket.emit('polls-simplified');
    }
 
    ngOnDestroy() {
       this.connectionService.socket.off('polls-simplified-accepted');
       this.connectionService.socket.off('polls-simplified-refused');
+      this.connectionService.socket.off('polls-delete-accepted');
+      this.connectionService.socket.off('polls-delete-refused');
    }
 
    getViewCopyInput(poll: SimplifiedPoll) {
@@ -108,7 +122,7 @@ export class ManageComponent  {
    };
 
    removePoll(poll: SimplifiedPoll) {
-      console.log(poll);
+      this.connectionService.socket.emit('polls-delete', poll.id);
    }
 }
 
