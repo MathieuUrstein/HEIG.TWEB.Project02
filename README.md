@@ -89,6 +89,12 @@ Then, you can launch a container based on this builded image with the command:
 After that, you need to download and build the npm dependencies with this command:
 
     $ npm install
+    
+##### bcrypt
+Windows user may experience troubles with the bcrypt package installation. Here is a step
+by step installation
+
+[https://futurestud.io/tutorials/how-to-build-nodegyp-to-run-bcrypt-on-windows](https://futurestud.io/tutorials/how-to-build-nodegyp-to-run-bcrypt-on-windows)
 
 #### Grunt
 Finally, you just need to execute the following command to launch the web application:
@@ -112,7 +118,6 @@ The application is now available on this address:
 Configs can be found in
 
     /config/*
-
 
 
 ## Authors

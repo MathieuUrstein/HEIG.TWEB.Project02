@@ -8,6 +8,7 @@
             <ul class="list-unstyled">
                <li *ngFor="let poll of polls" class="row">
                   <div class="col-md-8 manage">
+                     <a (click)="askRemovePoll(poll, $event); $event.stopPropagation()" class="btn btn-secondary"><i class="fa fa-trash"></i></a>
                      <a routerLink="/edit/{{poll.id}}" class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
                      <a routerLink="/r/{{poll.id}}" [class.hovered]="poll.titleHovered" class="btn btn-secondary look"><i class="fa fa-th-list"></i></a>
                      <h5 routerLink="/r/{{poll.id}}" (mouseover)="poll.titleHovered = true" (mouseout)="poll.titleHovered = false">{{poll.title}}</h5>
@@ -35,3 +36,18 @@
    </div>
 </div>
 <footer></footer>
+<div  [style.left]="pollPopOver.position.x + 'px'"
+      [style.top]="pollPopOver.position.y + 'px'"
+      [class.invisible]="!pollPopOver.visible"
+      class="popover popover-{{pollPopOver.direction}}"
+      style="position: absolute"
+      (clickOutside)="removePollPopOver()">
+   <div class="popover-arrow"></div>
+   <h3 class="popover-title">{{pollPopOver.title}}</h3>
+   <div class="popover-content">
+      <div class="btn-group justified">
+         <a (click)="removePollPopOver()" class="btn btn-secondary">Cancel</a>
+         <a (click)="removePoll(pollPopOver.poll); removePollPopOver()" class="btn btn-primary">Ok</a>
+      </div>
+   </div>
+</div>

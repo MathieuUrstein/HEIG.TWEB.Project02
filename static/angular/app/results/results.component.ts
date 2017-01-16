@@ -13,7 +13,7 @@ import {ErrorsService} from '../header-menu/errors/errors.service';
 export class ResultsComponent  {
    private routeParams: Object;
    private id: string = null;
-   private title: string = 'A title';
+   private title: string = '';
    private polls: Array<Poll> = [];
 
    constructor(

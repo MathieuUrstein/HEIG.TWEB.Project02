@@ -193,10 +193,14 @@ export class EditComponent  {
 
    removePollPopOver() {
       this.pollPopOver.visible = false;
+      this.pollPopOver.position.x = -1000;
+      this.pollPopOver.position.y = -1000;
    }
 
    removeAnswerPopOver() {
       this.answerPopOver.visible = false;
+      this.answerPopOver.position.x = -1000;
+      this.answerPopOver.position.y = -1000;
    }
 
    singleSelect(poll: Poll, answer: Answer) {
