@@ -12,7 +12,7 @@ export class ConnectionService {
    isConnectedSource = new BehaviorSubject<boolean>(false);
    creationPolls: Array<Poll> = [];
    creationPollName: string = '';
-   socket = io('http://localhost:3000');
+   socket = io(window.location.origin);
    needActivation: boolean = false;
 
    constructor(

@@ -78,7 +78,7 @@ module.exports = function(io, mongoose) {
          var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
          if (!re.test(message.email)) { errors.push('Email is not valid') }
          // the password should be at lest 8 chars
-         if (message.password < 8) { errors.push('Password should be at least 8 characters') }
+         if (message.password.length < 8) { errors.push('Password should be at least 8 characters') }
          // check if email does already exists
          User.find({email: message.email}, function (err, data) {
             if (err) return console.log(err);
