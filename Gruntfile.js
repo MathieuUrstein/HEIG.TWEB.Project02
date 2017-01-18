@@ -15,6 +15,12 @@ module.exports = function (grunt) {
          }
       },
       copy: {
+         images: {
+            expand: true,
+            cwd: 'static/images/',
+            src: '*',
+            dest: 'static/public/images/'
+         },
          bootstrap: {
             expand: true,
             cwd: 'node_modules/bootstrap/scss/',

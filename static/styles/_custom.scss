@@ -55,6 +55,14 @@ h1,h2,h3,h4,h5,h6 {
    text-align: center;
 }
 
+// todo : delete
+// center fluid images
+.center-fluid {
+   max-width: 100%;
+   height: auto;
+   margin-bottom: 15px;
+}
+
 .spinner > div {
    width: 18px;
    height: 18px;
